@@ -18,7 +18,7 @@ import static com.jivesoftware.example.Constants.GITHUB_OTP_HEADER;
 public class AuthenticationErrorHandler implements ErrorHandler {
     @Override
     public Throwable handleError(RetrofitError cause) {
-        if (cause.getResponse().getStatus() == AUTHENTICATION_ERROR_CODE) {
+        if (cause.getResponse() != null && cause.getResponse().getStatus() == AUTHENTICATION_ERROR_CODE) {
             Response response = cause.getResponse();
             if ( response != null ) {
                 List<Header> headers = response.getHeaders();

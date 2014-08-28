@@ -6,4 +6,6 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="two_factor_required">Two factor authentication is required.</string>
+    <string name="bad_username_password">Bad username or password.</string>
 </resources>

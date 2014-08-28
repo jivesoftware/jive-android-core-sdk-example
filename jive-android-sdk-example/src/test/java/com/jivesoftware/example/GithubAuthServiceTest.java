@@ -19,7 +19,6 @@ import static junit.framework.TestCase.assertEquals;
  */
 @RunWith(RobolectricTestRunner.class)
 public class GitHubAuthServiceTest {
-
     private IGitHubAuthService testObject;
     private String username;
     private String password;
@@ -30,8 +29,13 @@ public class GitHubAuthServiceTest {
     public void setUp() {
         username = "jivelandstl";
         password = "G1thubRulz123!";
-        gitHubRequestInterceptor = new GitHubRequestInterceptor(username, password, null);
+
+        gitHubRequestInterceptor = new GitHubRequestInterceptor();
+        gitHubRequestInterceptor.setPassword(username);
+        gitHubRequestInterceptor.setPassword(password);
+
         authErrorHandler = new AuthenticationErrorHandler();
+
         testObject = GitHubAuthServiceFactory.create(gitHubRequestInterceptor, authErrorHandler);
     }
 

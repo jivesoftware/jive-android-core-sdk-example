@@ -14,11 +14,7 @@ public class GitHubRequestInterceptor implements RequestInterceptor {
     private String token;
     private String otp;
 
-    public GitHubRequestInterceptor(String username, String password, String otp) {
-        setUsername(username);
-        setPassword(password);
-        setOtp(otp);
-    }
+    public GitHubRequestInterceptor() {}
 
     @Override
     public void intercept(RequestFacade request) {
