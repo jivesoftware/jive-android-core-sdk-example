@@ -1,9 +1,10 @@
 package com.jivesoftware.example;
 
-import com.jivesoftware.example.github.GitHubAuthService;
+import com.jivesoftware.example.authentication.AuthenticationErrorHandler;
+import com.jivesoftware.example.exceptions.AuthenticationException;
+import com.jivesoftware.example.github.IGitHubAuthService;
 import com.jivesoftware.example.github.GitHubAuthServiceFactory;
-import com.jivesoftware.example.github.TwoFactorErrorHandler;
-import com.jivesoftware.example.github.TwoFactorException;
+import com.jivesoftware.example.exceptions.TwoFactorException;
 import com.jivesoftware.example.github.dao.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,7 @@ import static junit.framework.TestCase.assertEquals;
 @RunWith(RobolectricTestRunner.class)
 public class GithubAuthServiceTest {
 
-    private GitHubAuthService testObject;
+    private IGitHubAuthService testObject;
     private String username;
     private String password;
 
@@ -26,19 +27,24 @@ public class GithubAuthServiceTest {
     public void setUp() {
         username = "jivelandstl";
         password = "G1thubRulz123!";
-        testObject = GitHubAuthServiceFactory.create(username, password, null, new TwoFactorErrorHandler());
+        testObject = GitHubAuthServiceFactory.create(username, password, null, new AuthenticationErrorHandler());
     }
 
     @Test
-    public void testWhenAuthorizationRequestedThenItIsRetrieved() throws TwoFactorException {
+    public void testWhenAuthorizationRequestedThenItIsRetrieved() throws TwoFactorException, AuthenticationException {
         User user = testObject.getUser();
         assertEquals(user.login, username);
     }
 
     @Test(expected = TwoFactorException.class)
-    public void testWhenTwoFactorAuthThenExceptionIsThrown() throws TwoFactorException {
-        testObject = GitHubAuthServiceFactory.create("jiveland-two-factor", "G1thubRulz123!", null, new TwoFactorErrorHandler());
+    public void testWhenTwoFactorAuthThenExceptionIsThrown() throws TwoFactorException, AuthenticationException {
+        testObject = GitHubAuthServiceFactory.create("jiveland-two-factor", "G1thubRulz123!", null, new AuthenticationErrorHandler());
         testObject.getUser();
     }
 
+    @Test(expected = AuthenticationException.class)
+    public void testWhenBadPasswordThenAuthenticationExceptionIsThrown() throws TwoFactorException, AuthenticationException {
+        testObject = GitHubAuthServiceFactory.create("jivelandstl", "badpass", null, new AuthenticationErrorHandler());
+        testObject.getUser();
+    }
 }
