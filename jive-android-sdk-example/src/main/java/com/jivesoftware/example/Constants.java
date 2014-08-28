@@ -6,4 +6,5 @@ package com.jivesoftware.example;
 public class Constants {
     public static final int AUTHENTICATION_ERROR_CODE = 401;
     public static final String GITHUB_OTP_HEADER =  "X-GitHub-OTP";
+    public static final String AUTHENTICATION = "Authorization";
 }

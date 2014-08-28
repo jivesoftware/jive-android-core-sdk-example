@@ -2,6 +2,7 @@ package com.jivesoftware.example;
 
 import com.jivesoftware.example.authentication.AuthenticationErrorHandler;
 import com.jivesoftware.example.exceptions.AuthenticationException;
+import com.jivesoftware.example.github.GitHubRequestInterceptor;
 import com.jivesoftware.example.github.IGitHubAuthService;
 import com.jivesoftware.example.github.GitHubAuthServiceFactory;
 import com.jivesoftware.example.exceptions.TwoFactorException;
@@ -17,17 +18,21 @@ import static junit.framework.TestCase.assertEquals;
  * Created by mark.schisler on 8/26/14.
  */
 @RunWith(RobolectricTestRunner.class)
-public class GithubAuthServiceTest {
+public class GitHubAuthServiceTest {
 
     private IGitHubAuthService testObject;
     private String username;
     private String password;
+    private GitHubRequestInterceptor gitHubRequestInterceptor;
+    private AuthenticationErrorHandler authErrorHandler;
 
     @Before
     public void setUp() {
         username = "jivelandstl";
         password = "G1thubRulz123!";
-        testObject = GitHubAuthServiceFactory.create(username, password, null, new AuthenticationErrorHandler());
+        gitHubRequestInterceptor = new GitHubRequestInterceptor(username, password, null);
+        authErrorHandler = new AuthenticationErrorHandler();
+        testObject = GitHubAuthServiceFactory.create(gitHubRequestInterceptor, authErrorHandler);
     }
 
     @Test
@@ -38,13 +43,15 @@ public class GithubAuthServiceTest {
 
     @Test(expected = TwoFactorException.class)
     public void testWhenTwoFactorAuthThenExceptionIsThrown() throws TwoFactorException, AuthenticationException {
-        testObject = GitHubAuthServiceFactory.create("jiveland-two-factor", "G1thubRulz123!", null, new AuthenticationErrorHandler());
+        gitHubRequestInterceptor.setUsername("jiveland-two-factor");
+        gitHubRequestInterceptor.setPassword("G1thubRulz123!");
         testObject.getUser();
     }
 
     @Test(expected = AuthenticationException.class)
     public void testWhenBadPasswordThenAuthenticationExceptionIsThrown() throws TwoFactorException, AuthenticationException {
-        testObject = GitHubAuthServiceFactory.create("jivelandstl", "badpass", null, new AuthenticationErrorHandler());
+        gitHubRequestInterceptor.setUsername("jivelandstl");
+        gitHubRequestInterceptor.setPassword("badpass");
         testObject.getUser();
     }
 }
