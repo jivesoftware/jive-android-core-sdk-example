@@ -2,6 +2,7 @@ package com.jivesoftware.example.authentication;
 
 import android.app.Activity;
 import com.jivesoftware.example.authentication.events.LoginPressed;
+import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.repositories.RepositoriesActivity;
 import com.jivesoftware.example.listenable.IListener;
 import com.jivesoftware.example.listenable.IValueListener;
@@ -17,9 +18,9 @@ import static com.jivesoftware.example.authentication.AuthenticationView.Type.LO
  */
 public class AuthenticationPresenter {
     public static void create(final Activity activity, final AuthenticationModel model, final AuthenticationView view, final ActivityLauncher launcher) {
-        model.listenable.setListener(new IListener() {
+        model.listenable.setListener(new IValueListener<User>() {
             @Override
-            public void onPost() {
+            public void onPost(User user) {
                 view.hideMessage();
                 launcher.launch(activity, RepositoriesActivity.class);
             }
