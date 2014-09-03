@@ -5,7 +5,6 @@ package com.jivesoftware.example.github.dao;
  */
 public class AuthorizationRequest {
     public String note;
-    public String noteUrl;
     public String clientId;
     public String clientSecret;
 }

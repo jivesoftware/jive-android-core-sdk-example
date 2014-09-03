@@ -89,6 +89,14 @@ public class AuthenticationView extends LinearLayout {
         authenticationMessage.setText(getResources().getString(R.string.bad_username_password));
     }
 
+    public void showOauthFailure() {
+        usernameLayout.setVisibility(VISIBLE);
+        passwordLayout.setLeft(VISIBLE);
+        oneTimeLayout.setVisibility(GONE);
+        authenticationMessage.setVisibility(VISIBLE);
+        authenticationMessage.setText(getResources().getString(R.string.oauth_failure));
+    }
+
     public void hideMessage() {
         authenticationMessage.setVisibility(GONE);
     }

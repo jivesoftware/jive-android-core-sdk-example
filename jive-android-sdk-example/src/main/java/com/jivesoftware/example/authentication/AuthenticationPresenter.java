@@ -3,14 +3,16 @@ package com.jivesoftware.example.authentication;
 import android.app.Activity;
 import com.jivesoftware.example.authentication.events.LoginPressed;
 import com.jivesoftware.example.github.dao.User;
-import com.jivesoftware.example.repositories.RepositoriesActivity;
 import com.jivesoftware.example.listenable.IListener;
 import com.jivesoftware.example.listenable.IValueListener;
+import com.jivesoftware.example.repositories.RepositoriesActivity;
 import com.jivesoftware.example.utils.ActivityLauncher;
 
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.AUTHENTICATION_FAILURE;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.AUTHENTICATION_SUCCESS;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.AUTHENTICATION_TWO_FACTOR_REQUIRED;
+import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_FAILURE;
+import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_SUCCESS;
+import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED;
+import static com.jivesoftware.example.authentication.AuthenticationModel.Type.OAUTH_AUTHENTICATION_FAILURE;
+import static com.jivesoftware.example.authentication.AuthenticationModel.Type.OAUTH_AUTHENTICATION_SUCCESS;
 import static com.jivesoftware.example.authentication.AuthenticationView.Type.LOGIN_PRESSED;
 
 /**
@@ -21,24 +23,38 @@ public class AuthenticationPresenter {
         model.listenable.setListener(new IValueListener<User>() {
             @Override
             public void onPost(User user) {
+                model.obtainOauthToken();
+            }
+        }, BASIC_AUTHENTICATION_SUCCESS);
+
+        model.listenable.setListener(new IListener() {
+            @Override
+            public void onPost() {
                 view.hideMessage();
                 launcher.launch(activity, RepositoriesActivity.class);
             }
-        }, AUTHENTICATION_SUCCESS);
+        }, OAUTH_AUTHENTICATION_SUCCESS);
+
+        model.listenable.setListener(new IListener() {
+            @Override
+            public void onPost() {
+               view.showOauthFailure();
+            }
+        }, OAUTH_AUTHENTICATION_FAILURE);
 
         model.listenable.setListener(new IListener() {
             @Override
             public void onPost() {
                 view.showAuthenticationRequired();
             }
-        }, AUTHENTICATION_FAILURE);
+        }, BASIC_AUTHENTICATION_FAILURE);
 
         model.listenable.setListener(new IListener() {
             @Override
             public void onPost() {
                 view.showTwoFactorRequired();
             }
-        }, AUTHENTICATION_TWO_FACTOR_REQUIRED);
+        }, BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED);
 
         view.listenable.setListener(new IValueListener<LoginPressed>() {
             @Override
@@ -46,7 +62,7 @@ public class AuthenticationPresenter {
                 model.setUsername(event.username);
                 model.setPassword(event.password);
                 model.setOnetime(event.onetime);
-                model.refresh();
+                model.obtainBasicAuth();
             }
         }, LOGIN_PRESSED);
 
