@@ -2,10 +2,12 @@ package com.jivesoftware.example;
 
 import com.jivesoftware.example.authentication.AuthenticationErrorHandler;
 import com.jivesoftware.example.exceptions.AuthenticationException;
+import com.jivesoftware.example.exceptions.TwoFactorException;
+import com.jivesoftware.example.github.GitHubAuthServiceFactory;
 import com.jivesoftware.example.github.GitHubRequestInterceptor;
 import com.jivesoftware.example.github.IGitHubAuthService;
-import com.jivesoftware.example.github.GitHubAuthServiceFactory;
-import com.jivesoftware.example.exceptions.TwoFactorException;
+import com.jivesoftware.example.github.dao.Authorization;
+import com.jivesoftware.example.github.dao.AuthorizationRequest;
 import com.jivesoftware.example.github.dao.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Test.None;
 
 /**
  * Created by mark.schisler on 8/26/14.
@@ -39,7 +42,7 @@ public class GitHubAuthServiceTest {
         testObject = GitHubAuthServiceFactory.create(gitHubRequestInterceptor, authErrorHandler);
     }
 
-    @Test
+    @Test(expected = None.class)
     public void testWhenAuthorizationRequestedThenItIsRetrieved() throws TwoFactorException, AuthenticationException {
         User user = testObject.getUser();
         assertEquals(user.login, username);
@@ -57,5 +60,16 @@ public class GitHubAuthServiceTest {
         gitHubRequestInterceptor.setUsername("jivelandstl");
         gitHubRequestInterceptor.setPassword("badpass");
         testObject.getUser();
+    }
+
+    @Test(expected = None.class)
+    public void testWhenAuthorizationIsCreatedThenItCanBeDeleted() throws AuthenticationException, TwoFactorException {
+        User user = testObject.getUser();
+        AuthorizationRequest request = new AuthorizationRequest();
+        request.note = getClass().getName();
+        request.clientId = Constants.OAUTH_CLIENT_ID;
+        request.clientSecret = Constants.OAUTH_CLIENT_SECRET;
+        Authorization authorization = testObject.postAuthorization(request);
+        testObject.deleteAuthorization(authorization.id);
     }
 }
