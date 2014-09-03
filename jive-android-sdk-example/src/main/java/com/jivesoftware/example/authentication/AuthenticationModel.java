@@ -2,7 +2,7 @@ package com.jivesoftware.example.authentication;
 
 import com.jivesoftware.example.Constants;
 import com.jivesoftware.example.exceptions.TwoFactorException;
-import com.jivesoftware.example.github.GitHubRequestInterceptor;
+import com.jivesoftware.example.github.GitHubBasicAuthRequestInterceptor;
 import com.jivesoftware.example.github.IGitHubAuthService;
 import com.jivesoftware.example.github.dao.Authorization;
 import com.jivesoftware.example.github.dao.AuthorizationRequest;
@@ -23,7 +23,7 @@ import static com.jivesoftware.example.authentication.AuthenticationModel.Type.O
  */
 public class AuthenticationModel {
     public final TypeListenable listenable = new TypeListenable();
-    private GitHubRequestInterceptor gitHubRequestInterceptor;
+    private GitHubBasicAuthRequestInterceptor gitHubBasicAuthRequestInterceptor;
     private IGitHubAuthService gitHubAuthService;
     private String oAuthToken;
 
@@ -36,8 +36,8 @@ public class AuthenticationModel {
         OAUTH_AUTHENTICATION_FAILURE
     }
 
-    public AuthenticationModel(GitHubRequestInterceptor interceptor, IGitHubAuthService gitHubAuthService) {
-        this.gitHubRequestInterceptor = interceptor;
+    public AuthenticationModel(GitHubBasicAuthRequestInterceptor interceptor, IGitHubAuthService gitHubAuthService) {
+        this.gitHubBasicAuthRequestInterceptor = interceptor;
         this.gitHubAuthService = gitHubAuthService;
     }
 
@@ -79,14 +79,14 @@ public class AuthenticationModel {
     }
 
     public void setUsername(String username) {
-        gitHubRequestInterceptor.setUsername(username);
+        gitHubBasicAuthRequestInterceptor.setUsername(username);
     }
 
     public void setPassword(String password) {
-        gitHubRequestInterceptor.setPassword(password);
+        gitHubBasicAuthRequestInterceptor.setPassword(password);
     }
 
     public void setOnetime(String onetime) {
-        gitHubRequestInterceptor.setOtp(onetime);
+        gitHubBasicAuthRequestInterceptor.setOtp(onetime);
     }
 }
