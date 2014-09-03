@@ -44,7 +44,7 @@ public class GitHubAuthServiceTest {
 
     @Test(expected = None.class)
     public void testWhenAuthorizationRequestedThenItIsRetrieved() throws TwoFactorException, AuthenticationException {
-        User user = testObject.getUser();
+        User user = testObject.getSelf();
         assertEquals(user.login, username);
     }
 
@@ -52,19 +52,19 @@ public class GitHubAuthServiceTest {
     public void testWhenTwoFactorAuthThenExceptionIsThrown() throws TwoFactorException, AuthenticationException {
         gitHubBasicAuthRequestInterceptor.setUsername("jiveland-two-factor");
         gitHubBasicAuthRequestInterceptor.setPassword("G1thubRulz123!");
-        testObject.getUser();
+        testObject.getSelf();
     }
 
     @Test(expected = AuthenticationException.class)
     public void testWhenBadPasswordThenAuthenticationExceptionIsThrown() throws TwoFactorException, AuthenticationException {
         gitHubBasicAuthRequestInterceptor.setUsername("jivelandstl");
         gitHubBasicAuthRequestInterceptor.setPassword("badpass");
-        testObject.getUser();
+        testObject.getSelf();
     }
 
     @Test(expected = None.class)
     public void testWhenAuthorizationIsCreatedThenItCanBeDeleted() throws AuthenticationException, TwoFactorException {
-        User user = testObject.getUser();
+        testObject.getSelf();
         AuthorizationRequest request = new AuthorizationRequest();
         request.note = getClass().getName();
         request.clientId = Constants.OAUTH_CLIENT_ID;

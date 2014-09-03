@@ -17,10 +17,10 @@ import retrofit.http.Path;
  */
 public interface IGitHubAuthService {
     @GET("/user")
-    User getUser() throws AuthenticationException, TwoFactorException;
+    User getSelf() throws AuthenticationException, TwoFactorException;
 
     @GET("/user")
-    void getUser(Callback<User> callback);
+    void getSelf(Callback<User> callback);
 
     @POST("/authorizations")
     Authorization postAuthorization(@Body AuthorizationRequest request) throws AuthenticationException, TwoFactorException;

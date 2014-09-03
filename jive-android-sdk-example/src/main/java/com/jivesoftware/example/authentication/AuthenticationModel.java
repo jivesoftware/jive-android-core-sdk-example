@@ -44,7 +44,7 @@ public class AuthenticationModel {
     }
 
     public void obtainBasicAuth() {
-        gitHubAuthService.getUser(new Callback<User>() {
+        gitHubAuthService.getSelf(new Callback<User>() {
             @Override
             public void success(User user, Response response) {
                 listenable.post(user, BASIC_AUTHENTICATION_SUCCESS);
@@ -52,7 +52,7 @@ public class AuthenticationModel {
 
             @Override
             public void failure(RetrofitError error) {
-                if ( error.getCause() instanceof TwoFactorException) {
+                if (error.getCause() instanceof TwoFactorException) {
                     listenable.post(BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED);
                 } else {
                     listenable.post(BASIC_AUTHENTICATION_FAILURE);
