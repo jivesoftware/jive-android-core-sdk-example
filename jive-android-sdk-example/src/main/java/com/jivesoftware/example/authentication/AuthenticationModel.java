@@ -8,6 +8,7 @@ import com.jivesoftware.example.github.dao.Authorization;
 import com.jivesoftware.example.github.dao.AuthorizationRequest;
 import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.listenable.TypeListenable;
+import com.jivesoftware.example.utils.PersistedKeyValueStore;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -25,7 +26,7 @@ public class AuthenticationModel {
     public final TypeListenable listenable = new TypeListenable();
     private GitHubBasicAuthRequestInterceptor gitHubBasicAuthRequestInterceptor;
     private IGitHubAuthService gitHubAuthService;
-    private String oAuthToken;
+    private PersistedKeyValueStore keyValueStore;
 
     public enum Type {
         BASIC_AUTHENTICATION_SUCCESS,
@@ -36,9 +37,10 @@ public class AuthenticationModel {
         OAUTH_AUTHENTICATION_FAILURE
     }
 
-    public AuthenticationModel(GitHubBasicAuthRequestInterceptor interceptor, IGitHubAuthService gitHubAuthService) {
+    public AuthenticationModel(GitHubBasicAuthRequestInterceptor interceptor, IGitHubAuthService gitHubAuthService, PersistedKeyValueStore keyValueStore) {
         this.gitHubBasicAuthRequestInterceptor = interceptor;
         this.gitHubAuthService = gitHubAuthService;
+        this.keyValueStore = keyValueStore;
     }
 
     public void obtainBasicAuth() {
@@ -67,7 +69,7 @@ public class AuthenticationModel {
         gitHubAuthService.postAuthorization(request, new Callback<Authorization>() {
             @Override
             public void success(Authorization authorization, Response response) {
-                oAuthToken = authorization.token;
+                keyValueStore.putGithubToken(authorization.token);
                 listenable.post(OAUTH_AUTHENTICATION_SUCCESS);
             }
 

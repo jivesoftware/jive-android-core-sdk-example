@@ -3,7 +3,7 @@ package com.jivesoftware.example;
 import com.jivesoftware.example.authentication.AuthenticationErrorHandler;
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;
-import com.jivesoftware.example.github.GitHubAuthServiceFactory;
+import com.jivesoftware.example.github.GitHubServiceFactory;
 import com.jivesoftware.example.github.GitHubBasicAuthRequestInterceptor;
 import com.jivesoftware.example.github.IGitHubAuthService;
 import com.jivesoftware.example.github.dao.Authorization;
@@ -39,7 +39,7 @@ public class GitHubAuthServiceTest {
 
         authErrorHandler = new AuthenticationErrorHandler();
 
-        testObject = GitHubAuthServiceFactory.create(gitHubBasicAuthRequestInterceptor, authErrorHandler);
+        testObject = GitHubServiceFactory.createAuthService(gitHubBasicAuthRequestInterceptor, authErrorHandler);
     }
 
     @Test(expected = None.class)
