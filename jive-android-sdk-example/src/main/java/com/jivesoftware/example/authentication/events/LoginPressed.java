@@ -6,9 +6,11 @@ package com.jivesoftware.example.authentication.events;
 public class LoginPressed {
     public final String username;
     public final String password;
+    public final String onetime;
 
-    public LoginPressed(String username, String password) {
+    public LoginPressed(String username, String password, String onetime) {
         this.username = username;
         this.password = password;
+        this.onetime = onetime;
     }
 }

@@ -24,6 +24,7 @@
             android:textColor="@android:color/holo_red_light" />
 
     <LinearLayout
+            android:id="@+id/username_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -40,6 +41,7 @@
     </LinearLayout>
 
     <LinearLayout
+            android:id="@+id/password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -53,6 +55,24 @@
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/onetime_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/one_time" />
+
+        <EditText
+                android:id="@+id/onetime_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
     </LinearLayout>
 

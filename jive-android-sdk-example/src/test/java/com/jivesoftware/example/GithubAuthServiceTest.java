@@ -31,7 +31,7 @@ public class GitHubAuthServiceTest {
         password = "G1thubRulz123!";
 
         gitHubRequestInterceptor = new GitHubRequestInterceptor();
-        gitHubRequestInterceptor.setPassword(username);
+        gitHubRequestInterceptor.setUsername(username);
         gitHubRequestInterceptor.setPassword(password);
 
         authErrorHandler = new AuthenticationErrorHandler();

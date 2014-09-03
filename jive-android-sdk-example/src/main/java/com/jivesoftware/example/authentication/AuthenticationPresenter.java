@@ -45,6 +45,7 @@ public class AuthenticationPresenter {
             public void onPost(LoginPressed event) {
                 model.setUsername(event.username);
                 model.setPassword(event.password);
+                model.setOnetime(event.onetime);
                 model.refresh();
             }
         }, LOGIN_PRESSED);

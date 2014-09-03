@@ -21,6 +21,10 @@ public class AuthenticationView extends LinearLayout {
     private Button loginButton;
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private EditText oneTimeEditText;
+    private View oneTimeLayout;
+    private View usernameLayout;
+    private View passwordLayout;
 
     public enum Type {
         LOGIN_PRESSED
@@ -49,23 +53,38 @@ public class AuthenticationView extends LinearLayout {
         authenticationMessage = (TextView) findViewById(R.id.authentication_message);
         usernameEditText = (EditText) findViewById(R.id.username_edittext);
         passwordEditText = (EditText) findViewById(R.id.password_edittext);
+        oneTimeEditText = (EditText) findViewById(R.id.onetime_edittext);
+
+        usernameLayout = findViewById(R.id.username_layout);
+        passwordLayout = findViewById(R.id.password_layout);
+        oneTimeLayout = findViewById(R.id.onetime_layout);
 
         loginButton = (Button) findViewById(R.id.login_button);
         loginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginPressed event = new LoginPressed(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                String username = usernameEditText.getText() != null ? usernameEditText.getText().toString() : "";
+                String password = passwordEditText.getText() != null ? passwordEditText.getText().toString() : "";
+                String onetime = oneTimeEditText.getText() != null ? oneTimeEditText.getText().toString() : "";
+
+                LoginPressed event = new LoginPressed(username, password, onetime);
                 listenable.post(event, LOGIN_PRESSED);
             }
         });
     }
 
     public void showTwoFactorRequired() {
+        usernameLayout.setVisibility(GONE);
+        passwordLayout.setVisibility(GONE);
+        oneTimeLayout.setVisibility(VISIBLE);
         authenticationMessage.setVisibility(VISIBLE);
         authenticationMessage.setText(getResources().getString(R.string.two_factor_required));
     }
 
     public void showAuthenticationRequired() {
+        usernameLayout.setVisibility(VISIBLE);
+        passwordLayout.setLeft(VISIBLE);
+        oneTimeLayout.setVisibility(GONE);
         authenticationMessage.setVisibility(VISIBLE);
         authenticationMessage.setText(getResources().getString(R.string.bad_username_password));
     }
