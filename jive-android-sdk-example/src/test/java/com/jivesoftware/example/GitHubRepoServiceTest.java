@@ -9,6 +9,7 @@ import com.jivesoftware.example.github.GitHubServiceFactory;
 import com.jivesoftware.example.github.IGitHubAuthService;
 import com.jivesoftware.example.github.IGitHubRepoService;
 import com.jivesoftware.example.github.dao.AuthorizationRequest;
+import com.jivesoftware.example.github.dao.Organization;
 import com.jivesoftware.example.github.dao.Repository;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,8 +45,14 @@ public class GitHubRepoServiceTest {
     }
 
     @Test
-    public void testWhenReposAreRequestedThenTheyAreRetreived() throws AuthenticationException, TwoFactorException {
+    public void testWhenReposAreRequestedThenTheyAreRetrieved() throws AuthenticationException, TwoFactorException {
         Repository[] userRepositories = testObject.getUserRepositories();
         assertEquals(userRepositories.length, 2);
+    }
+
+    @Test
+    public void testWhenOrganizationsAreRequestedThenTHeyAreRetrieved() throws AuthenticationException, TwoFactorException {
+        Organization[] organizations = testObject.getOrganizations();
+        assertEquals(organizations.length, 1);
     }
 }

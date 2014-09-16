@@ -18,6 +18,7 @@ public class RepositoriesPresenter {
         }, RepositoriesModel.Type.USER_REPOS_REFRESH_SUCCESS);
 
         model.refreshUserRepositories();
+        model.refreshOrganizations();
         activity.getActionBar().setTitle(activity.getString(R.string.repositories));
         activity.setContentView(view);
     }

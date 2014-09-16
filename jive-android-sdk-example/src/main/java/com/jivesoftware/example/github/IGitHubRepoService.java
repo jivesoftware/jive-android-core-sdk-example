@@ -5,6 +5,7 @@ import com.jivesoftware.example.exceptions.TwoFactorException;
 import com.jivesoftware.example.github.dao.Organization;
 import com.jivesoftware.example.github.dao.Repository;
 import retrofit.Callback;
+import retrofit.http.EncodedPath;
 import retrofit.http.GET;
 
 /**
@@ -17,9 +18,16 @@ public interface IGitHubRepoService {
     @GET("/user/repos")
     void getUserRepositories(Callback<Repository[]> callback);
 
-    @GET("user/orgs")
+    @GET("/{repo_url}")
+    Repository[] getRepositories(@EncodedPath("repo_url") String repoUrl);
+
+    @GET("/{repo_url}")
+    void getRepositories(@EncodedPath("repo_url") String repoUrl, Callback<Repository[]> callback);
+
+    @GET("/user/orgs")
     Organization[] getOrganizations() throws AuthenticationException, TwoFactorException;
 
-    @GET("user/orgs")
+    @GET("/user/orgs")
     void getOrganizations(Callback<Organization[]> callback);
+
 }

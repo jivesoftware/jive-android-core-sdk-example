@@ -36,7 +36,7 @@ public class RepositoryView extends LinearLayout {
     }
 
     public void refresh(Repository repository) {
-        title.setText(repository.name);
+        title.setText(repository.fullName);
         description.setText(repository.description);
     }
 }

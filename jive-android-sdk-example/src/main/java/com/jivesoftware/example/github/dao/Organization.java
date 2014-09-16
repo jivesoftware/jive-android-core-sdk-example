@@ -9,8 +9,10 @@ public class Organization {
     public int id;
     public String login;
     public String name;
+    public String fullName;
     public String company;
     public String location;
     public String email;
+    public String reposUrl;
     public Date createdAt;
 }
