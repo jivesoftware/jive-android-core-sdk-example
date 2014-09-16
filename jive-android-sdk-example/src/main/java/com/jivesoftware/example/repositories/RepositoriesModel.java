@@ -43,12 +43,12 @@ public class RepositoriesModel {
          repoService.getUserRepositories(new Callback<Repository[]>() {
              @Override
              public void success(Repository[] repositories, Response response) {
-                 addRepositories(repositories);
+                 postRepositories(repositories);
              }
 
              @Override
              public void failure(RetrofitError error) {
-                listenable.post(USER_REPOS_REFRESH_FAILURE);
+                postRepositoriesFailure();
              }
          });
     }
@@ -75,21 +75,25 @@ public class RepositoriesModel {
             repoService.getRepositories(uri.getPath().substring(1), new Callback<Repository[]>() {
                 @Override
                 public void success(Repository[] repositories, Response response) {
-                    addRepositories(repositories);
+                    postRepositories(repositories);
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-
+                    postRepositoriesFailure();
                 }
             });
         }
     }
 
-    private void addRepositories(Repository[] repositories) {
+    private void postRepositories(Repository[] repositories) {
         this.repositories.addAll(Arrays.asList(repositories));
         Repository[] repositoriesCopy = new Repository[this.repositories.size()];
         this.repositories.toArray(repositoriesCopy);
         listenable.post(repositoriesCopy, USER_REPOS_REFRESH_SUCCESS);
+    }
+
+    private void postRepositoriesFailure() {
+        listenable.post(USER_REPOS_REFRESH_FAILURE);
     }
 }
