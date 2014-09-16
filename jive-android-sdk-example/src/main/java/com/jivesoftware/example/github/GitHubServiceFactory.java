@@ -25,6 +25,11 @@ public class GitHubServiceFactory {
         return restAdapter.create(IGitHubRepoService.class);
     }
 
+    public static IGitHubUserSearchService createUserSearchService(GitHubOauthRequestInterceptor requestInterceptor, AuthenticationErrorHandler authErrorHandler) {
+        RestAdapter restAdapter = getRestAdapter(requestInterceptor, authErrorHandler);
+        return restAdapter.create(IGitHubUserSearchService.class);
+    }
+
     private static RestAdapter getRestAdapter(RequestInterceptor requestInterceptor, AuthenticationErrorHandler authErrorHandler) {
         Gson gson = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

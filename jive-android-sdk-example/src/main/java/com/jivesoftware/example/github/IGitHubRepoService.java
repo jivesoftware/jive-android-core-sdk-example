@@ -29,5 +29,4 @@ public interface IGitHubRepoService {
 
     @GET("/user/orgs")
     void getOrganizations(Callback<Organization[]> callback);
-
 }
