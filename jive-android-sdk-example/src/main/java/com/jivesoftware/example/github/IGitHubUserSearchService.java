@@ -2,8 +2,9 @@ package com.jivesoftware.example.github;
 
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;
-import com.jivesoftware.example.github.dao.List;
+import com.jivesoftware.example.github.dao.GitHubList;
 import com.jivesoftware.example.github.dao.User;
+import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
@@ -12,5 +13,9 @@ import retrofit.http.Query;
  */
 public interface IGitHubUserSearchService {
     @GET("/search/users")
-    List<User> getUsers(@Query("q") String query) throws AuthenticationException, TwoFactorException;
+    GitHubList<User> getUsers(@Query("q") String query) throws AuthenticationException, TwoFactorException;
+
+    @GET("/search/users")
+    void getUsers(@Query("q") String query, Callback<GitHubList<User>> callback);
+
 }
