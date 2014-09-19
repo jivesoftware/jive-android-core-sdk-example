@@ -13,6 +13,8 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import java.util.Arrays;
+
 import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_FAILURE;
 import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_SUCCESS;
 import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED;
@@ -66,6 +68,9 @@ public class AuthenticationModel {
         request.clientId = Constants.OAUTH_CLIENT_ID;
         request.clientSecret = Constants.OAUTH_CLIENT_SECRET;
         request.note = getClass().getName();
+        request.scopes = new String [2];
+        Arrays.asList("repo", "admin:org").toArray(request.scopes);
+
         gitHubAuthService.postAuthorization(request, new Callback<Authorization>() {
             @Override
             public void success(Authorization authorization, Response response) {

@@ -8,5 +8,5 @@ public class Repository {
     public String name;
     public String fullName;
     public String description;
-    public Organization organization;
+    public String url;
 }

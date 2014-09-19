@@ -7,4 +7,5 @@ public class AuthorizationRequest {
     public String note;
     public String clientId;
     public String clientSecret;
+    public String[] scopes;
 }

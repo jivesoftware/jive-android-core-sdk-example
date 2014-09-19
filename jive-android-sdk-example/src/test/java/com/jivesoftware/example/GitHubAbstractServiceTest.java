@@ -7,8 +7,12 @@ import com.jivesoftware.example.github.GitHubBasicAuthRequestInterceptor;
 import com.jivesoftware.example.github.GitHubOauthRequestInterceptor;
 import com.jivesoftware.example.github.GitHubServiceFactory;
 import com.jivesoftware.example.github.IGitHubAuthService;
+import com.jivesoftware.example.github.dao.Authorization;
 import com.jivesoftware.example.github.dao.AuthorizationRequest;
+import org.junit.After;
 import org.junit.Before;
+
+import java.util.Arrays;
 
 /**
  * Created by mark.schisler on 9/16/14.
@@ -16,6 +20,8 @@ import org.junit.Before;
 public class GitHubAbstractServiceTest {
     protected GitHubOauthRequestInterceptor gitHubOauthRequestInterceptor;
     protected AuthenticationErrorHandler authErrorHandler;
+    private Authorization authorization;
+    private IGitHubAuthService authService;
 
     @Before
     public void setUp() throws AuthenticationException, TwoFactorException {
@@ -27,14 +33,21 @@ public class GitHubAbstractServiceTest {
         gitHubBasicAuthRequestInterceptor.setPassword(password);
 
         authErrorHandler = new AuthenticationErrorHandler();
-        IGitHubAuthService authService = GitHubServiceFactory.createAuthService(gitHubBasicAuthRequestInterceptor, authErrorHandler);
+        authService = GitHubServiceFactory.createAuthService(gitHubBasicAuthRequestInterceptor, authErrorHandler);
         AuthorizationRequest request = new AuthorizationRequest();
         request.clientId = Constants.OAUTH_CLIENT_ID;
         request.clientSecret = Constants.OAUTH_CLIENT_SECRET;
         request.note = getClass().getName();
+        request.scopes = new String [2];
+        Arrays.asList("repo","admin:org").toArray(request.scopes);
 
-        String token = authService.postAuthorization(request).token;
-        gitHubOauthRequestInterceptor = new GitHubOauthRequestInterceptor(token);
+        authorization = authService.postAuthorization(request);
+        gitHubOauthRequestInterceptor = new GitHubOauthRequestInterceptor(authorization.token);
 
+    }
+
+    @After
+    public void tearDown() throws AuthenticationException, TwoFactorException {
+        authService.deleteAuthorization(authorization.id);
     }
 }
