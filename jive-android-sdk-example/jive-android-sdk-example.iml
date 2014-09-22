@@ -82,6 +82,7 @@
     <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp-urlconnection:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.picasso:picasso:2.3.4" level="project" />
   </component>
 </module>
 

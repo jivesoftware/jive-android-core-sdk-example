@@ -1,7 +1,5 @@
 package com.jivesoftware.example.github;
 
-import com.jivesoftware.example.exceptions.AuthenticationException;
-import com.jivesoftware.example.exceptions.TwoFactorException;
 import com.jivesoftware.example.github.dao.Organization;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.github.dao.Team;
@@ -19,7 +17,7 @@ public interface IGitHubRepoService {
     /**/
 
     @GET("/user/repos")
-    Repository[] getUserRepositories() throws AuthenticationException, TwoFactorException;
+    Repository[] getUserRepositories();
 
     @GET("/user/repos")
     void getUserRepositories(Callback<Repository[]> callback);
@@ -33,7 +31,7 @@ public interface IGitHubRepoService {
     /**/
 
     @GET("/user/orgs")
-    Organization[] getOrganizations() throws AuthenticationException, TwoFactorException;
+    Organization[] getOrganizations();
 
     @GET("/user/orgs")
     void getOrganizations(Callback<Organization[]> callback);
@@ -67,11 +65,15 @@ public interface IGitHubRepoService {
     void putCollaborator(@EncodedPath("repo_url") String repoUrl, @Path("collaborator") String collaborator, Callback<Void> callback);
 
     /**/
+    @GET("/teams/{id}/members")
+    User[] getTeamMembers(@Path("id") int id);
+
+    @GET("/teams/{id}/members")
+    void getTeamMembers(@Path("id") int id, Callback<User[]> callback);
 
     @PUT("/teams/{id}/members/{username}")
     Void putTeamMember(@Path("id") int id, @Path("username") String username);
 
     @PUT("/teams/{id}/members/{username}")
     Void putTeamMember(@Path("id") int id, @Path("username") String username, Callback<Void> callback);
-
 }

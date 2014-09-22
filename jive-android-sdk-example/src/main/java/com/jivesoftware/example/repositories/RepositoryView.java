@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.jivesoftware.example.Constants;
 import com.jivesoftware.example.R;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.utils.IntentUtils;
@@ -43,7 +44,11 @@ public class RepositoryView extends LinearLayout {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntentUtils.startTeamActivity(getContext(), repository);
+                if ( repository.owner.type.equals(Constants.ORGANIZATION_TYPE)) {
+                    IntentUtils.startTeamActivity(getContext(), repository);
+                } else {
+                    IntentUtils.startCollaboratorActivity(getContext(), repository);
+                }
             }
         });
     }

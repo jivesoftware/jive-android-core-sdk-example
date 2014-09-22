@@ -12,6 +12,7 @@ public class Repository implements Parcelable {
     public String fullName;
     public String description;
     public String url;
+    public Owner owner;
 
     @Override
     public int describeContents() {
@@ -25,6 +26,7 @@ public class Repository implements Parcelable {
         dest.writeString(fullName);
         dest.writeString(description);
         dest.writeString(url);
+        dest.writeParcelable(owner, flags);
     }
 
     public static final Parcelable.Creator<Repository> CREATOR =
@@ -37,6 +39,7 @@ public class Repository implements Parcelable {
                 repository.fullName = source.readString();
                 repository.description = source.readString();
                 repository.url = source.readString();
+                repository.owner = source.readParcelable(Owner.class.getClassLoader());
                 return repository;
             }
 

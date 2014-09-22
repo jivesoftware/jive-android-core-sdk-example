@@ -13,4 +13,5 @@
     <string name="token_key">token</string>
     <string name="repositories">Repositories</string>
     <string name="teams">Teams</string>
+    <string name="collaborators">Collaborators</string>
 </resources>

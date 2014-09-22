@@ -10,4 +10,7 @@ public class Constants {
 
     public static final String OAUTH_CLIENT_ID = "48d8d3e28c398cecf49b";
     public static final String OAUTH_CLIENT_SECRET = "654f1aebcc45932237e4c0af3a4f6a3f87eb64db";
+    
+    public static final String ORGANIZATION_TYPE = "Organization";
+    public static final String USER_TYPE = "User";
 }

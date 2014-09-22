@@ -23,5 +23,6 @@
         </activity>
         <activity android:name=".repositories.RepositoriesActivity"/>
         <activity android:name=".teams.TeamsActivity"/>
+        <activity android:name=".users.CollaboratorActivity"/>
     </application>
 </manifest>
