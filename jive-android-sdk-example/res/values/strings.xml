@@ -12,4 +12,5 @@
     <string name="oauth_failure">Failed to obtain Oauth token</string>
     <string name="token_key">token</string>
     <string name="repositories">Repositories</string>
+    <string name="teams">Teams</string>
 </resources>

@@ -1,10 +1,10 @@
 package com.jivesoftware.example.repositories;
 
-import android.net.Uri;
 import com.jivesoftware.example.github.IGitHubRepoService;
 import com.jivesoftware.example.github.dao.Organization;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.listenable.TypeListenable;
+import com.jivesoftware.example.utils.URLUtils;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -71,8 +71,7 @@ public class RepositoriesModel {
 
     public void refreshOrganizationRepositories() {
         for ( Organization organization : organizations) {
-            Uri uri = Uri.parse(organization.reposUrl);
-            repoService.getRepositories(uri.getPath().substring(1), new Callback<Repository[]>() {
+            repoService.getRepositories(URLUtils.getPath(organization.reposUrl), new Callback<Repository[]>() {
                 @Override
                 public void success(Repository[] repositories, Response response) {
                     postRepositories(repositories);

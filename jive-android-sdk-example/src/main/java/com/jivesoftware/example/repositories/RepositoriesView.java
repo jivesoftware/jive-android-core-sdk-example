@@ -37,6 +37,7 @@ public class RepositoriesView extends LinearLayout {
         adapter = new RepositoryAdapter(context);
         listView = (ListView) findViewById(R.id.repo_listview);
         listView.setAdapter(adapter);
+
     }
 
     public void setRepositories(Repository[] repositories) {

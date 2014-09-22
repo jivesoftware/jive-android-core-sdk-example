@@ -8,7 +8,6 @@
     <TextView
         android:id="@+id/repository_title"
         android:layout_margin="@dimen/medium_margin"
-        android:text="Boo"
         android:textStyle="bold"
         android:textSize="@dimen/header_font_size"
         android:layout_width="wrap_content"

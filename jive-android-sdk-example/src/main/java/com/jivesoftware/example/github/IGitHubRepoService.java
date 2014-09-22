@@ -47,10 +47,10 @@ public interface IGitHubRepoService {
     /**/
 
     @GET("/{repo_url}/teams")
-    User[] getRepoTeams(@EncodedPath("repo_url") String repoUrl);
+    Team[] getRepoTeams(@EncodedPath("repo_url") String repoUrl);
 
     @GET("/{repo_url}/teams")
-    void getRepoTeams(@EncodedPath("repo_url") String repoUrl, Callback<User[]> callback);
+    void getRepoTeams(@EncodedPath("repo_url") String repoUrl, Callback<Team[]> callback);
 
     /**/
 

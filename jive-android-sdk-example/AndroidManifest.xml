@@ -22,5 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".repositories.RepositoriesActivity"/>
+        <activity android:name=".teams.TeamsActivity"/>
     </application>
 </manifest>

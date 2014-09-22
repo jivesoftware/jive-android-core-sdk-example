@@ -8,11 +8,9 @@ import com.jivesoftware.example.github.dao.Organization;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.github.dao.Team;
 import com.jivesoftware.example.github.dao.User;
+import com.jivesoftware.example.utils.URLUtils;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -33,21 +31,25 @@ public class GitHubRepoServiceTest extends GitHubAbstractServiceTest {
     @Test
     public void testWhenReposAreRequestedThenTheyAreRetrieved() throws AuthenticationException, TwoFactorException {
         Repository[] userRepositories = testObject.getUserRepositories();
+
         assertEquals(userRepositories.length, 2);
     }
 
     @Test
     public void testWhenOrganizationsAreRequestedThenTHeyAreRetrieved() throws AuthenticationException, TwoFactorException {
         Organization[] organizations = testObject.getOrganizations();
+
         assertEquals(organizations.length, 1);
     }
 
     @Test
-    public void testWhenRepositoryIsRequestedThenItIsRetrieved() throws AuthenticationException, TwoFactorException, MalformedURLException {
+    public void testWhenRepositoryIsRequestedThenItIsRetrieved() throws AuthenticationException, TwoFactorException {
         Organization[] organizations = testObject.getOrganizations();
         Organization organization = organizations[0];
-        String repoUrl = new URL(organization.reposUrl).getPath().substring(1);
+        String repoUrl = URLUtils.getPath(organization.reposUrl);
+
         Repository[] repositories = testObject.getRepositories(repoUrl);
+
         Repository repository = repositories[0];
         assertNotNull(repository.fullName);
     }
@@ -56,19 +58,23 @@ public class GitHubRepoServiceTest extends GitHubAbstractServiceTest {
     public void testWhenOrgTeamsAreRequestedThenTheyCanBeRetrieved() throws AuthenticationException, TwoFactorException {
         Organization[] organizations = testObject.getOrganizations();
         Organization organization = organizations[0];
+
         Team[] organizationTeams = testObject.getOrganizationTeams(organization.login);
+
         assertEquals(organizationTeams.length, 2);
     }
 
     @Test
-    public void testWhenTeamsAreListedThenTheyAreFound() throws AuthenticationException, TwoFactorException, MalformedURLException {
+    public void testWhenTeamsAreListedThenTheyAreFound() throws AuthenticationException, TwoFactorException {
         Organization[] organizations = testObject.getOrganizations();
         Organization organization = organizations[0];
-        String reposUrl = new URL(organization.reposUrl).getPath().substring(1);
+        String reposUrl = URLUtils.getPath(organization.reposUrl);
         Repository[] repositories = testObject.getRepositories(reposUrl);
         Repository repository = repositories[0];
-        String repoUrl = new URL(repository.url).getPath().substring(1);
-        User[] repoTeams = testObject.getRepoTeams(repoUrl);
+        String repoUrl = URLUtils.getPath(repository.url);
+
+        Team[] repoTeams = testObject.getRepoTeams(repoUrl);
+
         assertEquals(repoTeams.length, 1);
     }
 
@@ -83,22 +89,24 @@ public class GitHubRepoServiceTest extends GitHubAbstractServiceTest {
     }
 
     @Test
-    public void testWhenUserCollaboratorsAreRequestedThenTeamsCanBeFound() throws AuthenticationException, TwoFactorException, MalformedURLException {
+    public void testWhenUserCollaboratorsAreRequestedThenTeamsCanBeFound() throws AuthenticationException, TwoFactorException {
         Organization[] organizations = testObject.getOrganizations();
         Organization organization = organizations[0];
-        String reposUrl = new URL(organization.reposUrl).getPath().substring(1);
+        String reposUrl = URLUtils.getPath(organization.reposUrl);
         Repository[] repositories = testObject.getRepositories(reposUrl);
         Repository repository = repositories[0];
-        String repoUrl = new URL(repository.url).getPath().substring(1);
+        String repoUrl = URLUtils.getPath(repository.url);
+
         User[] collaborators = testObject.getCollaborators(repoUrl);
+
         assertEquals(collaborators.length, 1);
     }
 
     @Test
-    public void testWhenCollaboratorIsPutThenItIsSuccessful() throws AuthenticationException, TwoFactorException, MalformedURLException {
+    public void testWhenCollaboratorIsPutThenItIsSuccessful() throws AuthenticationException, TwoFactorException {
         Repository[] repositories = testObject.getUserRepositories();
         Repository repository = repositories[0];
-        String repoUrl = new URL(repository.url).getPath().substring(1);
+        String repoUrl = URLUtils.getPath(repository.url);
 
         testObject.putCollaborator(repoUrl, "jivelandstl");
 
