@@ -2,6 +2,7 @@ package com.jivesoftware.example.listenable;
 
 import com.jivesoftware.example.destroyer.IDestroyable;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 
 /**
@@ -10,6 +11,11 @@ import java.util.HashMap;
 public class TypeListenable implements ITypeListenable, IDestroyable {
     HashMap<Enum, IListener> listenerHashMap = new HashMap<Enum, IListener>();
     HashMap<Enum, IValueListener<?>> valueListenerHashMap = new HashMap<Enum, IValueListener<?>>();
+
+    @Inject
+    public TypeListenable() {
+        // Nothing. Do nothing. Do it quickly.
+    }
 
     @Override
     public void destroy() {

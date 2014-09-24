@@ -19,16 +19,17 @@ import static com.jivesoftware.example.users.GitHubUsersModel.Type.USERS_REFRESH
  * Created by mark.schisler on 9/16/14.
  */
 public class GitHubUsersModel {
-    public TypeListenable listenable = new TypeListenable();
-    private IGitHubUserSearchService searchService;
+    public final TypeListenable listenable;
+    private final IGitHubUserSearchService searchService;
 
     public enum Type {
         USERS_REFRESH_SUCCESS,
         USERS_REFRESH_FAILURE,
     }
 
-    public GitHubUsersModel(IGitHubUserSearchService searchService) {
+    public GitHubUsersModel(IGitHubUserSearchService searchService, TypeListenable typeListenable) {
         this.searchService = searchService;
+        this.listenable = typeListenable;
     }
 
     public void refresh(String fullName) {

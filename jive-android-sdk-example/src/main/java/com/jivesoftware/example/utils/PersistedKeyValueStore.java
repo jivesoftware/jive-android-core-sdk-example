@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.jivesoftware.example.R;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Created by mark.schisler on 9/3/14.
  */
+@Singleton
 public class PersistedKeyValueStore {
     private Context context;
 
+    @Inject
     public PersistedKeyValueStore(Context context) {
         this.context = context;
     }

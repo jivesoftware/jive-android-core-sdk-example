@@ -1,39 +1,33 @@
 package com.jivesoftware.example.teams;
 
 import android.content.Context;
-import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import com.jivesoftware.example.R;
 import com.jivesoftware.example.github.dao.Team;
+
+import javax.inject.Inject;
 
 /**
  * Created by mark.schisler on 9/22/14.
  */
 public class TeamsView extends LinearLayout {
-    private TeamsAdapter adapter;
-    private ListView listView;
+    private final TeamsAdapter adapter;
 
-    public TeamsView(Context context) {
+    @InjectView(R.id.team_listview)
+    ListView listView;
+
+    @Inject
+    public TeamsView(Context context, TeamsAdapter teamsAdapter) {
         super(context);
-        initialize(context);
-    }
+        View view = inflate(context, R.layout.teams, this);
+        ButterKnife.inject(this, view);
 
-    public TeamsView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initialize(context);
-    }
+        adapter = teamsAdapter;
 
-    public TeamsView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        initialize(context);
-    }
-
-    private void initialize(Context context) {
-        inflate(context, R.layout.teams, this);
-
-        adapter = new TeamsAdapter(context);
-        listView = (ListView) findViewById(R.id.team_listview);
         listView.setAdapter(adapter);
     }
 

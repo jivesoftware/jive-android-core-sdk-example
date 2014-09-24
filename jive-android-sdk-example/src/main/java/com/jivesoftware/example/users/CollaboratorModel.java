@@ -9,24 +9,29 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static com.jivesoftware.example.users.CollaboratorModel.Type.COLLABORATOR_REFRESH_FAILURE;
 import static com.jivesoftware.example.users.CollaboratorModel.Type.COLLABORATOR_REFRESH_SUCCESS;
 
 /**
  * Created by mark.schisler on 9/22/14.
  */
+@Singleton
 public class CollaboratorModel {
-    public TypeListenable listenable;
-    private IGitHubRepoService repoService;
-    private Repository repository;
+    public final TypeListenable listenable;
+    private final IGitHubRepoService repoService;
+    private final Repository repository;
 
     public enum Type {
         COLLABORATOR_REFRESH_SUCCESS,
         COLLABORATOR_REFRESH_FAILURE
     }
 
-    public CollaboratorModel(IGitHubRepoService repoService, Repository repository) {
-        listenable = new TypeListenable();
+    @Inject
+    public CollaboratorModel(IGitHubRepoService repoService, Repository repository, TypeListenable typeListenable) {
+        this.listenable = typeListenable;
         this.repoService = repoService;
         this.repository = repository;
     }

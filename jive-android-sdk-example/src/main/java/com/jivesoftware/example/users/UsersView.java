@@ -1,44 +1,36 @@
 package com.jivesoftware.example.users;
 
 import android.content.Context;
-import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import com.jivesoftware.example.R;
 import com.jivesoftware.example.github.dao.User;
+
+import javax.inject.Inject;
 
 /**
  * Created by mark.schisler on 9/22/14.
  */
 public class UsersView extends LinearLayout {
-    private UserAdapter adapter;
-    private ListView listView;
+    private final UserAdapter adapter;
 
-    public UsersView(Context context) {
+    @InjectView(R.id.users_listview)
+    ListView listView;
+
+    @Inject
+    public UsersView(Context context, UserAdapter userAdapter) {
         super(context);
-        initialize(context);
-    }
+        View view = inflate(context, R.layout.users, this);
+        ButterKnife.inject(this, view);
 
-    public UsersView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initialize(context);
-    }
-
-    public UsersView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        initialize(context);
-    }
-
-    private void initialize(Context context) {
-        inflate(context, R.layout.users, this);
-
-        adapter = new UserAdapter(context);
-        listView = (ListView) findViewById(R.id.users_listview);
+        adapter = userAdapter;
         listView.setAdapter(adapter);
     }
 
     public void setUsers(User[] users) {
         adapter.setUsers(users);
     }
-
 }

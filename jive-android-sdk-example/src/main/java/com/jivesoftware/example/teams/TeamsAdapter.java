@@ -1,20 +1,25 @@
 package com.jivesoftware.example.teams;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import com.jivesoftware.example.github.dao.Team;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.inject.Singleton;
+
 /**
  * Created by mark.schisler on 9/22/14.
  */
+@Singleton
 public class TeamsAdapter extends BaseAdapter {
     private Team[] teams = new Team[0];
-    private Context context;
+    private final Provider<TeamView> teamViewProvider;
 
-    public TeamsAdapter(Context context) {
-        this.context = context;
+    @Inject
+    public TeamsAdapter(Provider<TeamView> teamViewProvider) {
+        this.teamViewProvider = teamViewProvider;
     }
 
     @Override
@@ -36,7 +41,7 @@ public class TeamsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         TeamView teamView = (TeamView) convertView;
         if ( teamView == null ) {
-            teamView = new TeamView(this.context);
+            teamView = teamViewProvider.get();
         }
         teamView.refresh((Team) getItem(position));
         return teamView;

@@ -1,76 +1,58 @@
 package com.jivesoftware.example.authentication;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import com.jivesoftware.example.R;
 import com.jivesoftware.example.authentication.events.LoginPressed;
 import com.jivesoftware.example.listenable.TypeListenable;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import static com.jivesoftware.example.authentication.AuthenticationView.Type.LOGIN_PRESSED;
 
 /**
  * Created by mark.schisler on 8/28/14.
  */
+@Singleton
 public class AuthenticationView extends LinearLayout {
-    private TextView authenticationMessage;
-    private Button loginButton;
-    private EditText usernameEditText;
-    private EditText passwordEditText;
-    private EditText oneTimeEditText;
-    private View oneTimeLayout;
-    private View usernameLayout;
-    private View passwordLayout;
+    @InjectView(R.id.authentication_message) TextView authenticationMessage;
+    @InjectView(R.id.username_edittext) EditText usernameEditText;
+    @InjectView(R.id.password_edittext) EditText passwordEditText;
+    @InjectView(R.id.onetime_edittext) EditText oneTimeEditText;
+    @InjectView(R.id.onetime_layout) View oneTimeLayout;
+    @InjectView(R.id.username_layout) View usernameLayout;
+    @InjectView(R.id.password_layout) View passwordLayout;
 
     public enum Type {
         LOGIN_PRESSED
     }
 
-    public TypeListenable listenable = new TypeListenable();
+    public final TypeListenable listenable;
 
-    public AuthenticationView(Context context) {
+    @Inject
+    public AuthenticationView(Context context, TypeListenable typeListenable) {
         super(context);
-        initialize(context);
+        listenable = typeListenable;
+
+        View view = inflate(context, R.layout.authentication, this);
+        ButterKnife.inject(this, view);
     }
 
-    public AuthenticationView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initialize(context);
-    }
+    @OnClick(R.id.login_button)
+    public void submitLogin() {
+        String username = usernameEditText.getText() != null ? usernameEditText.getText().toString() : "";
+        String password = passwordEditText.getText() != null ? passwordEditText.getText().toString() : "";
+        String onetime = oneTimeEditText.getText() != null ? oneTimeEditText.getText().toString() : "";
 
-    public AuthenticationView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        initialize(context);
-    }
-
-    private void initialize(Context context) {
-        inflate(context, R.layout.authentication, this);
-
-        authenticationMessage = (TextView) findViewById(R.id.authentication_message);
-        usernameEditText = (EditText) findViewById(R.id.username_edittext);
-        passwordEditText = (EditText) findViewById(R.id.password_edittext);
-        oneTimeEditText = (EditText) findViewById(R.id.onetime_edittext);
-
-        usernameLayout = findViewById(R.id.username_layout);
-        passwordLayout = findViewById(R.id.password_layout);
-        oneTimeLayout = findViewById(R.id.onetime_layout);
-
-        loginButton = (Button) findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = usernameEditText.getText() != null ? usernameEditText.getText().toString() : "";
-                String password = passwordEditText.getText() != null ? passwordEditText.getText().toString() : "";
-                String onetime = oneTimeEditText.getText() != null ? oneTimeEditText.getText().toString() : "";
-
-                LoginPressed event = new LoginPressed(username, password, onetime);
-                listenable.post(event, LOGIN_PRESSED);
-            }
-        });
+        LoginPressed event = new LoginPressed(username, password, onetime);
+        listenable.post(event, LOGIN_PRESSED);
     }
 
     public void showTwoFactorRequired() {

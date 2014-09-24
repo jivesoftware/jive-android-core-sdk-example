@@ -9,6 +9,8 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +23,9 @@ import static com.jivesoftware.example.repositories.RepositoriesModel.Type.USER_
 /**
  * Created by mark.schisler on 9/3/14.
  */
+@Singleton
 public class RepositoriesModel {
-    public TypeListenable listenable = new TypeListenable();
+    public final TypeListenable listenable;
     private final IGitHubRepoService repoService;
     private Organization[] organizations;
     private List<Repository> repositories = new ArrayList<Repository>();
@@ -35,8 +38,10 @@ public class RepositoriesModel {
         ORGANIZATIONS_REFRESH_FAILURE
     }
 
-    public RepositoriesModel(IGitHubRepoService repoService) {
+    @Inject
+    public RepositoriesModel(IGitHubRepoService repoService, TypeListenable typeListenable) {
         this.repoService = repoService;
+        this.listenable = typeListenable;
     }
 
     public void refreshUserRepositories() {
@@ -69,7 +74,7 @@ public class RepositoriesModel {
         });
     }
 
-    public void refreshOrganizationRepositories() {
+    private void refreshOrganizationRepositories() {
         for ( Organization organization : organizations) {
             repoService.getRepositories(URLUtils.getPath(organization.reposUrl), new Callback<Repository[]>() {
                 @Override
