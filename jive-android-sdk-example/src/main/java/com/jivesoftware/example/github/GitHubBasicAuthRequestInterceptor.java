@@ -2,19 +2,26 @@ package com.jivesoftware.example.github;
 
 import retrofit.RequestInterceptor;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static com.jivesoftware.example.Constants.AUTHENTICATION;
 import static com.jivesoftware.example.Constants.GITHUB_OTP_HEADER;
 
 /**
 * Created by mark.schisler on 8/28/14.
 */
+@Singleton
 public class GitHubBasicAuthRequestInterceptor implements RequestInterceptor {
     private String username;
     private String password;
     private String token;
     private String otp;
 
-    public GitHubBasicAuthRequestInterceptor() {}
+    @Inject
+    public GitHubBasicAuthRequestInterceptor() {
+        // Nope Nope Nope.  NO-OP!
+    }
 
     @Override
     public void intercept(RequestFacade request) {

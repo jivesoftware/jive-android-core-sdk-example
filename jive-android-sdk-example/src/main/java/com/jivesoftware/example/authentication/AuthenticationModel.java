@@ -13,6 +13,8 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.Arrays;
 
 import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_FAILURE;
@@ -24,11 +26,12 @@ import static com.jivesoftware.example.authentication.AuthenticationModel.Type.O
 /**
  * Created by mark.schisler on 8/28/14.
  */
+@Singleton
 public class AuthenticationModel {
-    public final TypeListenable listenable = new TypeListenable();
-    private GitHubBasicAuthRequestInterceptor gitHubBasicAuthRequestInterceptor;
-    private IGitHubAuthService gitHubAuthService;
-    private PersistedKeyValueStore keyValueStore;
+    public final TypeListenable listenable;
+    private final GitHubBasicAuthRequestInterceptor gitHubBasicAuthRequestInterceptor;
+    private final IGitHubAuthService gitHubAuthService;
+    private final PersistedKeyValueStore keyValueStore;
 
     public enum Type {
         BASIC_AUTHENTICATION_SUCCESS,
@@ -39,7 +42,9 @@ public class AuthenticationModel {
         OAUTH_AUTHENTICATION_FAILURE
     }
 
-    public AuthenticationModel(GitHubBasicAuthRequestInterceptor interceptor, IGitHubAuthService gitHubAuthService, PersistedKeyValueStore keyValueStore) {
+    @Inject
+    public AuthenticationModel(GitHubBasicAuthRequestInterceptor interceptor, IGitHubAuthService gitHubAuthService, PersistedKeyValueStore keyValueStore, TypeListenable typeListenable) {
+        this.listenable = typeListenable;
         this.gitHubBasicAuthRequestInterceptor = interceptor;
         this.gitHubAuthService = gitHubAuthService;
         this.keyValueStore = keyValueStore;

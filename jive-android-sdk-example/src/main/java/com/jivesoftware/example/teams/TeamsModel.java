@@ -9,26 +9,31 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import static com.jivesoftware.example.teams.TeamsModel.Type.TEAM_REFRESH_FAILURE;
 import static com.jivesoftware.example.teams.TeamsModel.Type.TEAM_REFRESH_SUCCESS;
 
 /**
  * Created by mark.schisler on 9/22/14.
  */
+@Singleton
 public class TeamsModel {
-    public TypeListenable listenable;
-    private IGitHubRepoService repoService;
-    private Repository repository;
+    public final TypeListenable listenable;
+    private final IGitHubRepoService repoService;
+    private final Repository repository;
 
     enum Type {
         TEAM_REFRESH_SUCCESS,
         TEAM_REFRESH_FAILURE
     }
 
-    public TeamsModel(IGitHubRepoService repoService, Repository repository) {
+    @Inject
+    public TeamsModel(IGitHubRepoService repoService, Repository repository, TypeListenable typeListenable) {
         this.repoService = repoService;
         this.repository = repository;
-        this.listenable = new TypeListenable();
+        this.listenable = typeListenable;
     }
 
     public void refresh() {

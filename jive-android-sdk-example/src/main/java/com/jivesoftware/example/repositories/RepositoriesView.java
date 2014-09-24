@@ -1,43 +1,38 @@
 package com.jivesoftware.example.repositories;
 
 import android.content.Context;
-import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import com.jivesoftware.example.R;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.listenable.TypeListenable;
+
+import javax.inject.Inject;
 
 /**
  * Created by mark.schisler on 8/28/14.
  */
 public class RepositoriesView extends LinearLayout {
-    public TypeListenable typeListenable = new TypeListenable();
-    private ListView listView;
-    private RepositoryAdapter adapter;
+    public final TypeListenable typeListenable;
 
-    public RepositoriesView(Context context) {
+    private final RepositoryAdapter adapter;
+
+    @InjectView(R.id.repo_listview)
+    ListView listView;
+
+    @Inject
+    public RepositoriesView(Context context, RepositoryAdapter repositoryAdapter, TypeListenable typeListenable) {
         super(context);
-        initialize(context);
-    }
 
-    public RepositoriesView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initialize(context);
-    }
+        View view = inflate(context, R.layout.repositories, this);
+        ButterKnife.inject(this, view);
 
-    public RepositoriesView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        initialize(context);
-    }
-
-    private void initialize(Context context) {
-        inflate(context, R.layout.repositories, this);
-
-        adapter = new RepositoryAdapter(context);
-        listView = (ListView) findViewById(R.id.repo_listview);
+        this.adapter = repositoryAdapter;
         listView.setAdapter(adapter);
-
+        this.typeListenable = typeListenable;
     }
 
     public void setRepositories(Repository[] repositories) {

@@ -1,20 +1,23 @@
 package com.jivesoftware.example.repositories;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import com.jivesoftware.example.github.dao.Repository;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+
 /**
  * Created by mark.schisler on 9/3/14.
  */
 public class RepositoryAdapter extends BaseAdapter {
-    private Context context;
+    private final Provider<RepositoryView> repositoryViewProvider;
     private Repository[] repositories = new Repository[0];
 
-    public RepositoryAdapter(Context context) {
-        this.context = context;
+    @Inject
+    public RepositoryAdapter(Provider<RepositoryView> repositoryViewProvider) {
+        this.repositoryViewProvider = repositoryViewProvider;
     }
 
     @Override
@@ -41,7 +44,7 @@ public class RepositoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         RepositoryView view = (RepositoryView) convertView;
         if ( view == null ) {
-            view = new RepositoryView(context);
+            view = repositoryViewProvider.get();
         }
         view.refresh((Repository) getItem(position));
         return view;
