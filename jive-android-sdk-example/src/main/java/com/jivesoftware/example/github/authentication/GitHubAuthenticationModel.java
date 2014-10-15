@@ -1,9 +1,9 @@
-package com.jivesoftware.example.authentication;
+package com.jivesoftware.example.github.authentication;
 
 import com.jivesoftware.example.Constants;
 import com.jivesoftware.example.exceptions.TwoFactorException;
 import com.jivesoftware.example.github.GitHubBasicAuthRequestInterceptor;
-import com.jivesoftware.example.github.IGitHubAuthService;
+import com.jivesoftware.example.github.service.IGitHubAuthService;
 import com.jivesoftware.example.github.dao.Authorization;
 import com.jivesoftware.example.github.dao.AuthorizationRequest;
 import com.jivesoftware.example.github.dao.User;
@@ -17,17 +17,17 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Arrays;
 
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_FAILURE;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_SUCCESS;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.OAUTH_AUTHENTICATION_FAILURE;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.OAUTH_AUTHENTICATION_SUCCESS;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.BASIC_AUTHENTICATION_FAILURE;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.BASIC_AUTHENTICATION_SUCCESS;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.OAUTH_AUTHENTICATION_FAILURE;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.OAUTH_AUTHENTICATION_SUCCESS;
 
 /**
  * Created by mark.schisler on 8/28/14.
  */
 @Singleton
-public class AuthenticationModel {
+public class GitHubAuthenticationModel {
     public final TypeListenable listenable;
     private final GitHubBasicAuthRequestInterceptor gitHubBasicAuthRequestInterceptor;
     private final IGitHubAuthService gitHubAuthService;
@@ -43,7 +43,7 @@ public class AuthenticationModel {
     }
 
     @Inject
-    public AuthenticationModel(GitHubBasicAuthRequestInterceptor interceptor, IGitHubAuthService gitHubAuthService, PersistedKeyValueStore keyValueStore, TypeListenable typeListenable) {
+    public GitHubAuthenticationModel(GitHubBasicAuthRequestInterceptor interceptor, IGitHubAuthService gitHubAuthService, PersistedKeyValueStore keyValueStore, TypeListenable typeListenable) {
         this.listenable = typeListenable;
         this.gitHubBasicAuthRequestInterceptor = interceptor;
         this.gitHubAuthService = gitHubAuthService;

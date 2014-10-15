@@ -1,4 +1,4 @@
-package com.jivesoftware.example.github;
+package com.jivesoftware.example.github.service;
 
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;

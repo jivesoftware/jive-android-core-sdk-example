@@ -1,4 +1,4 @@
-package com.jivesoftware.example.authentication;
+package com.jivesoftware.example.github.authentication;
 
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;
@@ -15,7 +15,7 @@ import static com.jivesoftware.example.Constants.GITHUB_OTP_HEADER;
 /**
  * Created by mark.schisler on 8/26/14.
  */
-public class AuthenticationErrorHandler implements ErrorHandler {
+public class GitHubAuthenticationErrorHandler implements ErrorHandler {
     @Override
     public Throwable handleError(RetrofitError cause) {
         if (cause.getResponse() != null && cause.getResponse().getStatus() == AUTHENTICATION_ERROR_CODE) {

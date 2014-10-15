@@ -1,4 +1,4 @@
-package com.jivesoftware.example.github;
+package com.jivesoftware.example.github.service;
 
 import com.jivesoftware.example.github.dao.Organization;
 import com.jivesoftware.example.github.dao.Repository;

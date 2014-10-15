@@ -1,25 +1,25 @@
-package com.jivesoftware.example.authentication;
+package com.jivesoftware.example.github.authentication;
 
 import android.app.Activity;
-import com.jivesoftware.example.authentication.events.LoginPressed;
+import com.jivesoftware.example.github.authentication.events.LoginPressed;
 import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.listenable.IListener;
 import com.jivesoftware.example.listenable.IValueListener;
 import com.jivesoftware.example.repositories.RepositoriesActivity;
 import com.jivesoftware.example.utils.ActivityLauncher;
 
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_FAILURE;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_SUCCESS;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.OAUTH_AUTHENTICATION_FAILURE;
-import static com.jivesoftware.example.authentication.AuthenticationModel.Type.OAUTH_AUTHENTICATION_SUCCESS;
-import static com.jivesoftware.example.authentication.AuthenticationView.Type.LOGIN_PRESSED;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.BASIC_AUTHENTICATION_FAILURE;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.BASIC_AUTHENTICATION_SUCCESS;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.OAUTH_AUTHENTICATION_FAILURE;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.OAUTH_AUTHENTICATION_SUCCESS;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationView.Type.LOGIN_PRESSED;
 
 /**
  * Created by mark.schisler on 8/28/14.
  */
-public class AuthenticationPresenter {
-    public static void create(final Activity activity, final AuthenticationModel model, final AuthenticationView view, final ActivityLauncher launcher) {
+public class GitHubAuthenticationPresenter {
+    public static void create(final Activity activity, final GitHubAuthenticationModel model, final GitHubAuthenticationView view, final ActivityLauncher launcher) {
         model.listenable.setListener(new IValueListener<User>() {
             @Override
             public void onPost(User user) {

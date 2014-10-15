@@ -1,4 +1,4 @@
-package com.jivesoftware.example.authentication;
+package com.jivesoftware.example.github.authentication;
 
 import android.content.Context;
 import android.view.View;
@@ -9,19 +9,19 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import com.jivesoftware.example.R;
-import com.jivesoftware.example.authentication.events.LoginPressed;
+import com.jivesoftware.example.github.authentication.events.LoginPressed;
 import com.jivesoftware.example.listenable.TypeListenable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static com.jivesoftware.example.authentication.AuthenticationView.Type.LOGIN_PRESSED;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationView.Type.LOGIN_PRESSED;
 
 /**
  * Created by mark.schisler on 8/28/14.
  */
 @Singleton
-public class AuthenticationView extends LinearLayout {
+public class GitHubAuthenticationView extends LinearLayout {
     @InjectView(R.id.authentication_message) TextView authenticationMessage;
     @InjectView(R.id.username_edittext) EditText usernameEditText;
     @InjectView(R.id.password_edittext) EditText passwordEditText;
@@ -37,7 +37,7 @@ public class AuthenticationView extends LinearLayout {
     public final TypeListenable listenable;
 
     @Inject
-    public AuthenticationView(Context context, TypeListenable typeListenable) {
+    public GitHubAuthenticationView(Context context, TypeListenable typeListenable) {
         super(context);
         listenable = typeListenable;
 

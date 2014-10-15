@@ -1,11 +1,11 @@
 package com.jivesoftware.example;
 
-import com.jivesoftware.example.authentication.AuthenticationErrorHandler;
+import com.jivesoftware.example.github.authentication.GitHubAuthenticationErrorHandler;
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;
 import com.jivesoftware.example.github.GitHubBasicAuthRequestInterceptor;
 import com.jivesoftware.example.github.GitHubServiceFactory;
-import com.jivesoftware.example.github.IGitHubAuthService;
+import com.jivesoftware.example.github.service.IGitHubAuthService;
 import com.jivesoftware.example.github.dao.Authorization;
 import com.jivesoftware.example.github.dao.AuthorizationRequest;
 import com.jivesoftware.example.github.dao.User;
@@ -28,7 +28,7 @@ public class GitHubAuthServiceTest {
     private String username;
     private String password;
     private GitHubBasicAuthRequestInterceptor gitHubBasicAuthRequestInterceptor;
-    private AuthenticationErrorHandler authErrorHandler;
+    private GitHubAuthenticationErrorHandler authErrorHandler;
 
     @Before
     public void setUp() {
@@ -39,7 +39,7 @@ public class GitHubAuthServiceTest {
         gitHubBasicAuthRequestInterceptor.setUsername(username);
         gitHubBasicAuthRequestInterceptor.setPassword(password);
 
-        authErrorHandler = new AuthenticationErrorHandler();
+        authErrorHandler = new GitHubAuthenticationErrorHandler();
 
         testObject = GitHubServiceFactory.createAuthService(gitHubBasicAuthRequestInterceptor, authErrorHandler);
     }

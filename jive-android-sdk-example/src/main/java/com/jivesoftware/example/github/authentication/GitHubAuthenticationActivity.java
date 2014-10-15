@@ -1,4 +1,4 @@
-package com.jivesoftware.example.authentication;
+package com.jivesoftware.example.github.authentication;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,22 +12,19 @@ import dagger.Provides;
 
 import javax.inject.Inject;
 
-public class AuthenticationActivity extends Activity {
-
+public class GitHubAuthenticationActivity extends Activity{
     @Inject
-    AuthenticationModel model;
+    GitHubAuthenticationModel model;
     @Inject
-    AuthenticationView view;
+    GitHubAuthenticationView view;
     @Inject
     ActivityLauncher launcher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         ObjectGraph.create(new AuthenticationModule()).inject(this);
-
-        AuthenticationPresenter.create(this, model, view, launcher);
+        GitHubAuthenticationPresenter.create(this, model, view, launcher);
     }
 
     @Override
@@ -36,11 +33,13 @@ public class AuthenticationActivity extends Activity {
         return true;
     }
 
-    @Module( injects = AuthenticationActivity.class, includes = BaseModule.class )
+    @Module( injects = GitHubAuthenticationActivity.class, includes = BaseModule.class )
     public class AuthenticationModule {
-        @Provides public Context provideActivityContext() {
-            return AuthenticationActivity.this;
+        @Provides
+        public Context provideActivityContext() {
+            return GitHubAuthenticationActivity.this;
         }
     }
+
 }
 

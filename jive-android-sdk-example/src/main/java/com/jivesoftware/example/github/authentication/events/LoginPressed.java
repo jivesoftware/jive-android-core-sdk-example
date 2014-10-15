@@ -1,4 +1,4 @@
-package com.jivesoftware.example.authentication.events;
+package com.jivesoftware.example.github.authentication.events;
 
 /**
  * Created by mark.schisler on 8/28/14.

@@ -1,12 +1,12 @@
 package com.jivesoftware.example;
 
-import com.jivesoftware.example.authentication.AuthenticationErrorHandler;
+import com.jivesoftware.example.github.authentication.GitHubAuthenticationErrorHandler;
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;
 import com.jivesoftware.example.github.GitHubBasicAuthRequestInterceptor;
 import com.jivesoftware.example.github.GitHubOauthRequestInterceptor;
 import com.jivesoftware.example.github.GitHubServiceFactory;
-import com.jivesoftware.example.github.IGitHubAuthService;
+import com.jivesoftware.example.github.service.IGitHubAuthService;
 import com.jivesoftware.example.github.dao.Authorization;
 import com.jivesoftware.example.github.dao.AuthorizationRequest;
 import org.junit.After;
@@ -19,7 +19,7 @@ import java.util.Arrays;
  */
 public class GitHubAbstractServiceTest {
     protected GitHubOauthRequestInterceptor gitHubOauthRequestInterceptor;
-    protected AuthenticationErrorHandler authErrorHandler;
+    protected GitHubAuthenticationErrorHandler authErrorHandler;
     private Authorization authorization;
     private IGitHubAuthService authService;
 
@@ -32,7 +32,7 @@ public class GitHubAbstractServiceTest {
         gitHubBasicAuthRequestInterceptor.setUsername(username);
         gitHubBasicAuthRequestInterceptor.setPassword(password);
 
-        authErrorHandler = new AuthenticationErrorHandler();
+        authErrorHandler = new GitHubAuthenticationErrorHandler();
         authService = GitHubServiceFactory.createAuthService(gitHubBasicAuthRequestInterceptor, authErrorHandler);
         AuthorizationRequest request = new AuthorizationRequest();
         request.clientId = Constants.OAUTH_CLIENT_ID;

@@ -1,11 +1,11 @@
 package com.jivesoftware.example.injection;
 
-import com.jivesoftware.example.authentication.AuthenticationErrorHandler;
 import com.jivesoftware.example.github.GitHubBasicAuthRequestInterceptor;
 import com.jivesoftware.example.github.GitHubOauthRequestInterceptor;
 import com.jivesoftware.example.github.GitHubServiceFactory;
-import com.jivesoftware.example.github.IGitHubAuthService;
-import com.jivesoftware.example.github.IGitHubRepoService;
+import com.jivesoftware.example.github.authentication.GitHubAuthenticationErrorHandler;
+import com.jivesoftware.example.github.service.IGitHubAuthService;
+import com.jivesoftware.example.github.service.IGitHubRepoService;
 import com.jivesoftware.example.utils.PersistedKeyValueStore;
 import dagger.Module;
 import dagger.Provides;
@@ -22,11 +22,11 @@ public class BaseModule {
 
     @Provides
     public IGitHubRepoService provideGitHubRepoService(GitHubOauthRequestInterceptor interceptor) {
-        return GitHubServiceFactory.createRepoService(interceptor, new AuthenticationErrorHandler());
+        return GitHubServiceFactory.createRepoService(interceptor, new GitHubAuthenticationErrorHandler());
     }
 
     @Provides
     public IGitHubAuthService provideGitHubAuthService(GitHubBasicAuthRequestInterceptor interceptor) {
-        return GitHubServiceFactory.createAuthService(interceptor, new AuthenticationErrorHandler());
+        return GitHubServiceFactory.createAuthService(interceptor, new GitHubAuthenticationErrorHandler());
     }
 }

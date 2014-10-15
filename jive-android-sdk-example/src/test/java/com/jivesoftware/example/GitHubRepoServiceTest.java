@@ -3,7 +3,7 @@ package com.jivesoftware.example;
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;
 import com.jivesoftware.example.github.GitHubServiceFactory;
-import com.jivesoftware.example.github.IGitHubRepoService;
+import com.jivesoftware.example.github.service.IGitHubRepoService;
 import com.jivesoftware.example.github.dao.Organization;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.github.dao.Team;

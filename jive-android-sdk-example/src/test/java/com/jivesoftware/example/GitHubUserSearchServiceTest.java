@@ -3,7 +3,7 @@ package com.jivesoftware.example;
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;
 import com.jivesoftware.example.github.GitHubServiceFactory;
-import com.jivesoftware.example.github.IGitHubUserSearchService;
+import com.jivesoftware.example.github.service.IGitHubUserSearchService;
 import com.jivesoftware.example.github.dao.GitHubList;
 import com.jivesoftware.example.github.dao.User;
 import org.junit.Before;

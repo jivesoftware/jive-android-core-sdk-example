@@ -1,6 +1,6 @@
 package com.jivesoftware.example.users;
 
-import com.jivesoftware.example.github.IGitHubUserSearchService;
+import com.jivesoftware.example.github.service.IGitHubUserSearchService;
 import com.jivesoftware.example.github.dao.GitHubList;
 import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.listenable.TypeListenable;

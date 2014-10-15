@@ -1,6 +1,6 @@
 package com.jivesoftware.example.teams;
 
-import com.jivesoftware.example.github.IGitHubRepoService;
+import com.jivesoftware.example.github.service.IGitHubRepoService;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.github.dao.Team;
 import com.jivesoftware.example.listenable.TypeListenable;

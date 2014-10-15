@@ -1,6 +1,6 @@
 package com.jivesoftware.example.repositories;
 
-import com.jivesoftware.example.github.IGitHubRepoService;
+import com.jivesoftware.example.github.service.IGitHubRepoService;
 import com.jivesoftware.example.github.dao.Organization;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.listenable.TypeListenable;
