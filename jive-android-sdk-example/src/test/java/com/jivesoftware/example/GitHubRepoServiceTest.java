@@ -32,7 +32,7 @@ public class GitHubRepoServiceTest extends GitHubAbstractServiceTest {
     public void testWhenReposAreRequestedThenTheyAreRetrieved() throws AuthenticationException, TwoFactorException {
         Repository[] userRepositories = testObject.getUserRepositories();
 
-        assertEquals(userRepositories.length, 2);
+        assertEquals(userRepositories.length, 3);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class GitHubRepoServiceTest extends GitHubAbstractServiceTest {
     @Test
     public void testWhenCollaboratorIsPutThenItIsSuccessful() throws AuthenticationException, TwoFactorException {
         Repository[] repositories = testObject.getUserRepositories();
-        Repository repository = repositories[0];
+        Repository repository = repositories[1];
         String repoUrl = URLUtils.getPath(repository.url);
 
         testObject.putCollaborator(repoUrl, "jivelandstl");

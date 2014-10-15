@@ -32,7 +32,7 @@ public class GitHubUserSearchServiceTest extends GitHubAbstractServiceTest {
     }
 
     @Test
-    public void testWhenTwoUsersSearchedForThenTHeyAreFound() throws AuthenticationException, TwoFactorException {
+    public void testWhenTwoUsersSearchedForThenTheyAreFound() throws AuthenticationException, TwoFactorException {
         GitHubList<User> list = testObject.getUsers("fullname:\"Mark Schisler\" fullname:\"Jive Software\"");
         assertEquals(list.totalCount, 2);
         assertNotNull(list.items);

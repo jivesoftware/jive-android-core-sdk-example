@@ -3,8 +3,8 @@ package com.jivesoftware.example;
 import com.jivesoftware.example.authentication.AuthenticationErrorHandler;
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;
-import com.jivesoftware.example.github.GitHubServiceFactory;
 import com.jivesoftware.example.github.GitHubBasicAuthRequestInterceptor;
+import com.jivesoftware.example.github.GitHubServiceFactory;
 import com.jivesoftware.example.github.IGitHubAuthService;
 import com.jivesoftware.example.github.dao.Authorization;
 import com.jivesoftware.example.github.dao.AuthorizationRequest;
@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Test.None;
@@ -20,6 +21,7 @@ import static org.junit.Test.None;
 /**
  * Created by mark.schisler on 8/26/14.
  */
+@Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
 public class GitHubAuthServiceTest {
     private IGitHubAuthService testObject;
