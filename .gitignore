@@ -24,3 +24,5 @@ proguard/
 
 .idea/
 *.swp
+
+jive-android-sdk-example/target

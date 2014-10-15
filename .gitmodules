@@ -1,0 +1,3 @@
+[submodule "jive-android-core-sdk-parent"]
+	path = jive-android-core-sdk-parent
+	url = https://github.com/jivesoftware/jive-android-core-sdk
