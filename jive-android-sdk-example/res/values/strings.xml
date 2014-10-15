@@ -14,4 +14,7 @@
     <string name="repositories">Repositories</string>
     <string name="teams">Teams</string>
     <string name="collaborators">Collaborators</string>
+    <string name="jive_authentication">Jive Authentication</string>
+    <string name="endpoint">Endpoint</string>
+    <string name="endpoint_failure">Please use a valid endpoint</string>
 </resources>

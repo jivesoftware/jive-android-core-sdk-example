@@ -1,7 +1,7 @@
 package com.jivesoftware.example.github.authentication;
 
 import android.app.Activity;
-import com.jivesoftware.example.github.authentication.events.LoginPressed;
+import com.jivesoftware.example.github.authentication.events.GitHubLoginPressed;
 import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.listenable.IListener;
 import com.jivesoftware.example.listenable.IValueListener;
@@ -13,7 +13,7 @@ import static com.jivesoftware.example.github.authentication.GitHubAuthenticatio
 import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED;
 import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.OAUTH_AUTHENTICATION_FAILURE;
 import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.OAUTH_AUTHENTICATION_SUCCESS;
-import static com.jivesoftware.example.github.authentication.GitHubAuthenticationView.Type.LOGIN_PRESSED;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationView.Type.GIT_HUB_LOGIN_PRESSED;
 
 /**
  * Created by mark.schisler on 8/28/14.
@@ -56,15 +56,15 @@ public class GitHubAuthenticationPresenter {
             }
         }, BASIC_AUTHENTICATION_TWO_FACTOR_REQUIRED);
 
-        view.listenable.setListener(new IValueListener<LoginPressed>() {
+        view.listenable.setListener(new IValueListener<GitHubLoginPressed>() {
             @Override
-            public void onPost(LoginPressed event) {
+            public void onPost(GitHubLoginPressed event) {
                 model.setUsername(event.username);
                 model.setPassword(event.password);
                 model.setOnetime(event.onetime);
                 model.obtainBasicAuth();
             }
-        }, LOGIN_PRESSED);
+        }, GIT_HUB_LOGIN_PRESSED);
 
         activity.setContentView(view);
     }

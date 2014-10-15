@@ -23,7 +23,7 @@ public class GitHubAuthenticationActivity extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ObjectGraph.create(new AuthenticationModule()).inject(this);
+        ObjectGraph.create(new GitHubAuthenticationModule()).inject(this);
         GitHubAuthenticationPresenter.create(this, model, view, launcher);
     }
 
@@ -34,7 +34,7 @@ public class GitHubAuthenticationActivity extends Activity{
     }
 
     @Module( injects = GitHubAuthenticationActivity.class, includes = BaseModule.class )
-    public class AuthenticationModule {
+    public class GitHubAuthenticationModule {
         @Provides
         public Context provideActivityContext() {
             return GitHubAuthenticationActivity.this;

@@ -10,9 +10,7 @@ import javax.inject.Inject;
  */
 public class ActivityLauncher {
     @Inject
-    public ActivityLauncher() {
-        // Nothing to do.
-    }
+    public ActivityLauncher() {}
 
     public void launch(Context context, Class<?> clazz) {
         Intent intent = new Intent(context, clazz);

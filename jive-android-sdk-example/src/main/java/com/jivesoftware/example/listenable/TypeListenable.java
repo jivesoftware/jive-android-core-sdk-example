@@ -13,9 +13,7 @@ public class TypeListenable implements ITypeListenable, IDestroyable {
     HashMap<Enum, IValueListener<?>> valueListenerHashMap = new HashMap<Enum, IValueListener<?>>();
 
     @Inject
-    public TypeListenable() {
-        // Nothing. Do nothing. Do it quickly.
-    }
+    public TypeListenable() {}
 
     @Override
     public void destroy() {

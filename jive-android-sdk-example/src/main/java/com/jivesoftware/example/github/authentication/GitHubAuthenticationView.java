@@ -9,18 +9,16 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import com.jivesoftware.example.R;
-import com.jivesoftware.example.github.authentication.events.LoginPressed;
+import com.jivesoftware.example.github.authentication.events.GitHubLoginPressed;
 import com.jivesoftware.example.listenable.TypeListenable;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-import static com.jivesoftware.example.github.authentication.GitHubAuthenticationView.Type.LOGIN_PRESSED;
+import static com.jivesoftware.example.github.authentication.GitHubAuthenticationView.Type.GIT_HUB_LOGIN_PRESSED;
 
 /**
  * Created by mark.schisler on 8/28/14.
  */
-@Singleton
 public class GitHubAuthenticationView extends LinearLayout {
     @InjectView(R.id.authentication_message) TextView authenticationMessage;
     @InjectView(R.id.username_edittext) EditText usernameEditText;
@@ -31,7 +29,7 @@ public class GitHubAuthenticationView extends LinearLayout {
     @InjectView(R.id.password_layout) View passwordLayout;
 
     public enum Type {
-        LOGIN_PRESSED
+        GIT_HUB_LOGIN_PRESSED
     }
 
     public final TypeListenable listenable;
@@ -39,10 +37,10 @@ public class GitHubAuthenticationView extends LinearLayout {
     @Inject
     public GitHubAuthenticationView(Context context, TypeListenable typeListenable) {
         super(context);
-        listenable = typeListenable;
+        this.listenable = typeListenable;
 
-        View view = inflate(context, R.layout.authentication, this);
-        ButterKnife.inject(this, view);
+        inflate(context, R.layout.github_authentication, this);
+        ButterKnife.inject(this);
     }
 
     @OnClick(R.id.login_button)
@@ -51,8 +49,8 @@ public class GitHubAuthenticationView extends LinearLayout {
         String password = passwordEditText.getText() != null ? passwordEditText.getText().toString() : "";
         String onetime = oneTimeEditText.getText() != null ? oneTimeEditText.getText().toString() : "";
 
-        LoginPressed event = new LoginPressed(username, password, onetime);
-        listenable.post(event, LOGIN_PRESSED);
+        GitHubLoginPressed event = new GitHubLoginPressed(username, password, onetime);
+        listenable.post(event, GIT_HUB_LOGIN_PRESSED);
     }
 
     public void showTwoFactorRequired() {
