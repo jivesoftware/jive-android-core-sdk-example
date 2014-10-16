@@ -5,6 +5,7 @@ import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.github.dao.Team;
 import com.jivesoftware.example.github.dao.User;
 import retrofit.Callback;
+import retrofit.http.DELETE;
 import retrofit.http.EncodedPath;
 import retrofit.http.GET;
 import retrofit.http.PUT;
@@ -64,7 +65,14 @@ public interface IGitHubRepoService {
     @PUT("/{repo_url}/collaborators/{collaborator}")
     void putCollaborator(@EncodedPath("repo_url") String repoUrl, @Path("collaborator") String collaborator, Callback<Void> callback);
 
+    @DELETE("/{repo_url}/collaborators/{collaborator}")
+    Void deleteCollaborator(@EncodedPath("repo_url") String repoUrl, @Path("collaborator") String collaborator);
+
+    @DELETE("/{repo_url}/collaborators/{collaborator}")
+    void deleteCollaborator(@EncodedPath("repo_url") String repoUrl, @Path("collaborator") String collaborator, Callback<Void> callback);
+
     /**/
+
     @GET("/teams/{id}/members")
     User[] getTeamMembers(@Path("id") int id);
 

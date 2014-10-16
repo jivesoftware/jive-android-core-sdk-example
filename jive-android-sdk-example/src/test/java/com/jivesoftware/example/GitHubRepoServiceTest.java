@@ -108,9 +108,12 @@ public class GitHubRepoServiceTest extends GitHubAbstractServiceTest {
         Repository repository = repositories[1];
         String repoUrl = URLUtils.getPath(repository.url);
 
-        testObject.putCollaborator(repoUrl, "jivelandstl");
-
+        testObject.putCollaborator(repoUrl, "jiveland-two-factor");
         User[] collaborators = testObject.getCollaborators(repoUrl);
+        assertEquals(collaborators.length, 2);
+
+        testObject.deleteCollaborator(repoUrl, "jiveland-two-factor");
+        collaborators = testObject.getCollaborators(repoUrl);
         assertEquals(collaborators.length, 1);
     }
 }

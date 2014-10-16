@@ -24,6 +24,6 @@
         <activity android:name=".jive.authentication.JiveAuthenticationActivity"/>
         <activity android:name=".repositories.RepositoriesActivity"/>
         <activity android:name=".teams.TeamsActivity"/>
-        <activity android:name=".users.CollaboratorActivity"/>
+        <activity android:name=".collaborators.CollaboratorActivity"/>
     </application>
 </manifest>

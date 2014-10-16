@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.teams.TeamsActivity;
-import com.jivesoftware.example.users.CollaboratorActivity;
+import com.jivesoftware.example.collaborators.CollaboratorActivity;
 
 /**
  * Created by mark.schisler on 9/22/14.

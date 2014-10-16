@@ -1,4 +1,4 @@
-package com.jivesoftware.example.users;
+package com.jivesoftware.example.collaborators;
 
 import android.content.Context;
 import android.view.View;

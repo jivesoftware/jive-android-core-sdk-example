@@ -1,4 +1,4 @@
-package com.jivesoftware.example.users;
+package com.jivesoftware.example.collaborators;
 
 import com.jivesoftware.example.github.service.IGitHubRepoService;
 import com.jivesoftware.example.github.dao.Repository;
@@ -12,8 +12,8 @@ import retrofit.client.Response;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static com.jivesoftware.example.users.CollaboratorModel.Type.COLLABORATOR_REFRESH_FAILURE;
-import static com.jivesoftware.example.users.CollaboratorModel.Type.COLLABORATOR_REFRESH_SUCCESS;
+import static com.jivesoftware.example.collaborators.CollaboratorModel.Type.COLLABORATOR_REFRESH_FAILURE;
+import static com.jivesoftware.example.collaborators.CollaboratorModel.Type.COLLABORATOR_REFRESH_SUCCESS;
 
 /**
  * Created by mark.schisler on 9/22/14.

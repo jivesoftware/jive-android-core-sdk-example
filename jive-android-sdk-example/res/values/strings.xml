@@ -18,4 +18,6 @@
     <string name="jive_authentication">Jive Authentication</string>
     <string name="endpoint">Endpoint</string>
     <string name="endpoint_failure">Please use a valid endpoint</string>
+    <string name="jive_user">Jive User</string>
+    <string name="github_user">Github User</string>
 </resources>
