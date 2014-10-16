@@ -1,11 +1,11 @@
 package com.jivesoftware.example.github;
 
+import com.google.common.net.HttpHeaders;
 import retrofit.RequestInterceptor;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static com.jivesoftware.example.Constants.AUTHENTICATION;
 import static com.jivesoftware.example.Constants.GITHUB_OTP_HEADER;
 
 /**
@@ -23,7 +23,7 @@ public class GitHubBasicAuthRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void intercept(RequestFacade request) {
-        request.addHeader(AUTHENTICATION, token);
+        request.addHeader(HttpHeaders.AUTHORIZATION, token);
         if (otp != null) {
             request.addHeader(GITHUB_OTP_HEADER, otp);
         }

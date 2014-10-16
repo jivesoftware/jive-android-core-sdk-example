@@ -21,13 +21,26 @@ public class PersistedKeyValueStore {
 
     public String getGithubToken() {
         SharedPreferences sharedPref = context.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
-        return sharedPref.getString(context.getString(R.string.token_key),null);
+        return sharedPref.getString(context.getString(R.string.github_token_key),null);
     }
 
     public boolean putGithubToken(String token) {
         SharedPreferences sharedPref = context.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(context.getString(R.string.token_key), token);
+        editor.putString(context.getString(R.string.github_token_key), token);
         return editor.commit();
     }
+
+    public String getJiveToken() {
+        SharedPreferences sharedPref = context.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
+        return sharedPref.getString(context.getString(R.string.jive_token_key),null);
+    }
+
+    public boolean putJiveToken(String token) {
+        SharedPreferences sharedPref = context.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(context.getString(R.string.jive_token_key), token);
+        return editor.commit();
+    }
+
 }

@@ -1,11 +1,14 @@
 package com.jivesoftware.example.injection;
 
+import android.content.Context;
 import com.jivesoftware.example.github.GitHubOauthRequestInterceptor;
 import com.jivesoftware.example.github.GitHubServiceFactory;
 import com.jivesoftware.example.github.authentication.GitHubAuthenticationErrorHandler;
 import com.jivesoftware.example.github.service.IGitHubRepoService;
 import com.jivesoftware.example.jive.dao.JiveConnection;
+import com.jivesoftware.example.utils.JivePicasso;
 import com.jivesoftware.example.utils.PersistedKeyValueStore;
+import com.squareup.picasso.Picasso;
 import dagger.Module;
 import dagger.Provides;
 
@@ -27,5 +30,10 @@ public class BaseModule {
     @Provides
     public JiveConnection provideJiveConnection() {
         return JiveConnection.instance();
+    }
+
+    @Provides
+    public Picasso providePicasso(Context context) {
+        return JivePicasso.instance(context);
     }
 }

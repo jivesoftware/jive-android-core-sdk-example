@@ -10,7 +10,8 @@
     <string name="bad_username_password">Bad username or password.</string>
     <string name="one_time">One time</string>
     <string name="oauth_failure">Failed to obtain Oauth token</string>
-    <string name="token_key">token</string>
+    <string name="github_token_key">github_token</string>
+    <string name="jive_token_key">jive_token</string>
     <string name="repositories">Repositories</string>
     <string name="teams">Teams</string>
     <string name="collaborators">Collaborators</string>

@@ -17,6 +17,7 @@ import javax.inject.Inject;
  * Created by mark.schisler on 10/15/14.
  */
 public class ProfilesView extends LinearLayout {
+    private Picasso picasso;
     public TypeListenable listenable;
     @InjectView(R.id.github_avatar) ImageView githubAvatarView;
     @InjectView(R.id.github_name) TextView githubName;
@@ -24,8 +25,9 @@ public class ProfilesView extends LinearLayout {
     @InjectView(R.id.jive_name) TextView jiveName;
 
     @Inject
-    public ProfilesView(Context context, TypeListenable listenable) {
+    public ProfilesView(Context context, Picasso picasso, TypeListenable listenable) {
         super(context);
+        this.picasso = picasso;
         this.listenable = listenable;
         inflate(context, R.layout.profiles, this);
         ButterKnife.inject(this);
@@ -33,11 +35,11 @@ public class ProfilesView extends LinearLayout {
 
     public void refreshJiveProfile(String name, String avatarUrl) {
         jiveName.setText(name);
-        Picasso.with(getContext()).load(Uri.parse(avatarUrl)).into(jiveAvatarView);
+        picasso.load(Uri.parse(avatarUrl)).into(jiveAvatarView);
     }
 
     public void refreshGitHubProfile(String name, String avatarUrl) {
         githubName.setText(name);
-        Picasso.with(getContext()).load(Uri.parse(avatarUrl)).into(githubAvatarView);
+        picasso.load(Uri.parse(avatarUrl)).into(githubAvatarView);
     }
 }

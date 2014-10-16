@@ -1,6 +1,6 @@
 package com.jivesoftware.example.github;
 
-import com.jivesoftware.example.Constants;
+import com.google.common.net.HttpHeaders;
 import retrofit.RequestInterceptor;
 
 /**
@@ -13,6 +13,6 @@ public class GitHubOauthRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void intercept(RequestFacade request) {
-        request.addHeader(Constants.AUTHENTICATION, "token " + token);
+        request.addHeader(HttpHeaders.AUTHORIZATION, "token " + token);
     }
 }

@@ -3,6 +3,7 @@ package com.jivesoftware.example.jive.authentication;
 import com.jivesoftware.android.mobile.sdk.entity.TokenEntity;
 import com.jivesoftware.example.jive.dao.JiveConnection;
 import com.jivesoftware.example.listenable.TypeListenable;
+import com.jivesoftware.example.utils.PersistedKeyValueStore;
 
 import javax.inject.Inject;
 import java.net.MalformedURLException;
@@ -21,6 +22,7 @@ public class JiveAuthenticationModel {
     private String password;
     private URL endpoint;
     private JiveConnection connection;
+    private PersistedKeyValueStore keyValueStore;
 
     public enum Type {
         ENDPOINT_MALFORMED,
@@ -29,9 +31,10 @@ public class JiveAuthenticationModel {
     }
 
     @Inject
-    public JiveAuthenticationModel(TypeListenable listenable, JiveConnection connection) {
+    public JiveAuthenticationModel(TypeListenable listenable, JiveConnection connection, PersistedKeyValueStore keyValueStore) {
         this.listenable = listenable;
         this.connection = connection;
+        this.keyValueStore = keyValueStore;
     }
 
     public void setUsername(String username) {
@@ -53,7 +56,8 @@ public class JiveAuthenticationModel {
     public void obtainAuth() {
         connection.authenticate(username, password, endpoint, new JiveResultCallback<TokenEntity>() {
             @Override
-            public void success(TokenEntity result) {
+            public void success(TokenEntity tokenEntity) {
+                keyValueStore.putJiveToken(tokenEntity.tokenType + " " + tokenEntity.accessToken);
                 listenable.post(AUTH_SUCCESS);
             }
 
