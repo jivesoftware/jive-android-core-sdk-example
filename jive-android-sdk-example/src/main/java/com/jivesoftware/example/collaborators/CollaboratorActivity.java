@@ -3,6 +3,9 @@ package com.jivesoftware.example.collaborators;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import com.jivesoftware.example.R;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.injection.BaseModule;
 import com.jivesoftware.example.utils.IntentExtraNames;
@@ -27,10 +30,15 @@ public class CollaboratorActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         ObjectGraph.create(new CollaboratorModule()).inject(this);
-
         CollaboratorPresenter.create(this, toastMaker, model, view);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.collaborator_menu_actions, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Module( injects = CollaboratorActivity.class, includes = BaseModule.class)

@@ -22,4 +22,5 @@
     <string name="github_user">Github User</string>
     <string name="collaborator_deleted">Collaborator deleted</string>
     <string name="collaborator_deleted_failure">Error: collaborator not deleted</string>
+    <string name="add_collaborator">Add collaborator</string>
 </resources>
