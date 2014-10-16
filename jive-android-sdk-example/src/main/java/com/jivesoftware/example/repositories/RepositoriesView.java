@@ -31,11 +31,15 @@ public class RepositoriesView extends LinearLayout {
         ButterKnife.inject(this, view);
 
         this.adapter = repositoryAdapter;
-        listView.setAdapter(adapter);
         this.typeListenable = typeListenable;
     }
 
     public void setRepositories(Repository[] repositories) {
         adapter.setRepositories(repositories);
+    }
+
+    public void addHeader(View view) {
+        listView.addHeaderView(view);
+        listView.setAdapter(adapter);
     }
 }

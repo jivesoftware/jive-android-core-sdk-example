@@ -58,7 +58,7 @@ public class JiveAuthenticationModel {
             }
 
             @Override
-            public void error() {
+            public void failure() {
                 listenable.post(AUTH_FAILURE);
             }
         });

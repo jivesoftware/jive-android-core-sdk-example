@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
+import com.jivesoftware.example.github.GitHubBasicAuthRequestInterceptor;
+import com.jivesoftware.example.github.GitHubServiceFactory;
+import com.jivesoftware.example.github.service.IGitHubAuthService;
 import com.jivesoftware.example.injection.BaseModule;
 import com.jivesoftware.example.utils.ActivityLauncher;
 import dagger.Module;
@@ -38,6 +41,11 @@ public class GitHubAuthenticationActivity extends Activity{
         @Provides
         public Context provideActivityContext() {
             return GitHubAuthenticationActivity.this;
+        }
+
+        @Provides
+        public IGitHubAuthService provideGitHubAuthService(GitHubBasicAuthRequestInterceptor interceptor) {
+            return GitHubServiceFactory.createAuthService(interceptor, new GitHubAuthenticationErrorHandler());
         }
     }
 

@@ -23,6 +23,11 @@ public class GitHubServiceFactory {
         return restAdapter.create(IGitHubAuthService.class);
     }
 
+    public static IGitHubAuthService createAuthService(GitHubOauthRequestInterceptor requestInterceptor, GitHubAuthenticationErrorHandler authErrorHandler) {
+        RestAdapter restAdapter = getRestAdapter(requestInterceptor, authErrorHandler);
+        return restAdapter.create(IGitHubAuthService.class);
+    }
+
     public static IGitHubRepoService createRepoService(GitHubOauthRequestInterceptor requestInterceptor, GitHubAuthenticationErrorHandler authErrorHandler) {
         RestAdapter restAdapter = getRestAdapter(requestInterceptor, authErrorHandler);
         return restAdapter.create(IGitHubRepoService.class);

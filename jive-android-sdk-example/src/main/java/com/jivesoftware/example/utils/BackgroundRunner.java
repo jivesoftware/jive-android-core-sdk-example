@@ -20,7 +20,7 @@ public class BackgroundRunner implements IDestroyable {
 
     public interface JiveResultCallback<T> {
         void success(T result);
-        void error();
+        void failure();
     }
 
     public BackgroundRunner(BackgroundThread backgroundThread) {
@@ -47,7 +47,7 @@ public class BackgroundRunner implements IDestroyable {
                                 callback.success(returnValue);
                             } catch (Exception e) {
                                 Log.e(TAG, "Exception encountered ", e);
-                                callback.error();
+                                callback.failure();
                             }
                         }
                     });
@@ -56,7 +56,7 @@ public class BackgroundRunner implements IDestroyable {
                     foregroundHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            callback.error();
+                            callback.failure();
                         }
                     });
                 }

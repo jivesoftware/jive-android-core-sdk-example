@@ -19,9 +19,7 @@ public class GitHubBasicAuthRequestInterceptor implements RequestInterceptor {
     private String otp;
 
     @Inject
-    public GitHubBasicAuthRequestInterceptor() {
-        // Nope Nope Nope.  NO-OP!
-    }
+    public GitHubBasicAuthRequestInterceptor() {}
 
     @Override
     public void intercept(RequestFacade request) {
