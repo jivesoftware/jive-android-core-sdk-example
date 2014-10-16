@@ -1,4 +1,4 @@
-package com.jivesoftware.example.collaborators;
+package com.jivesoftware.example.followers;
 
 import com.jivesoftware.example.github.service.IGitHubUserSearchService;
 import com.jivesoftware.example.github.dao.GitHubList;
@@ -12,8 +12,8 @@ import retrofit.client.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.jivesoftware.example.collaborators.GitHubUsersModel.Type.USERS_REFRESH_FAILURE;
-import static com.jivesoftware.example.collaborators.GitHubUsersModel.Type.USERS_REFRESH_SUCCESS;
+import static com.jivesoftware.example.followers.GitHubUsersModel.Type.USERS_REFRESH_FAILURE;
+import static com.jivesoftware.example.followers.GitHubUsersModel.Type.USERS_REFRESH_SUCCESS;
 
 /**
  * Created by mark.schisler on 9/16/14.

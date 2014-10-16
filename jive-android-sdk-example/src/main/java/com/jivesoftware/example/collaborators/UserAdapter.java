@@ -43,7 +43,7 @@ public class UserAdapter extends BaseAdapter {
         if ( userView == null ) {
             userView = userViewProvider.get();
         }
-        userView.refresh((User)getItem(position));
+        userView.refresh((User) getItem(position));
         return userView;
     }
 

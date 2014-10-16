@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.injection.BaseModule;
 import com.jivesoftware.example.utils.IntentExtraNames;
+import com.jivesoftware.example.utils.ToastMaker;
 import dagger.Module;
 import dagger.ObjectGraph;
 import dagger.Provides;
@@ -19,7 +20,9 @@ public class CollaboratorActivity extends Activity {
     @Inject
     CollaboratorModel model;
     @Inject
-    UsersView view;
+    CollaboratorsView view;
+    @Inject
+    ToastMaker toastMaker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,7 @@ public class CollaboratorActivity extends Activity {
 
         ObjectGraph.create(new CollaboratorModule()).inject(this);
 
-        CollaboratorPresenter.create(this, model, view);
+        CollaboratorPresenter.create(this, toastMaker, model, view);
     }
 
     @Module( injects = CollaboratorActivity.class, includes = BaseModule.class)
