@@ -3,7 +3,6 @@ package com.jivesoftware.example.jive.authentication;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import com.jivesoftware.example.github.authentication.GitHubAuthenticationActivity;
 import com.jivesoftware.example.injection.BaseModule;
 import com.jivesoftware.example.utils.ActivityLauncher;
 import dagger.Module;
@@ -32,7 +31,7 @@ public class JiveAuthenticationActivity extends Activity {
         JiveAuthenticationPresenter.create(this, model, view, activityLauncher);
     }
 
-    @Module( injects = GitHubAuthenticationActivity.class, includes = BaseModule.class )
+    @Module( injects = JiveAuthenticationActivity.class, includes = BaseModule.class )
     public class JiveAuthenticationModule {
         @Provides
         public Context provideActivityContext() {

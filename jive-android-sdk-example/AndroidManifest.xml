@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".jive.authentication.JiveAuthenticationActivity"/>
         <activity android:name=".repositories.RepositoriesActivity"/>
         <activity android:name=".teams.TeamsActivity"/>
         <activity android:name=".users.CollaboratorActivity"/>

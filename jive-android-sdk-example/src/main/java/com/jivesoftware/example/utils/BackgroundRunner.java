@@ -1,13 +1,18 @@
 package com.jivesoftware.example.utils;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import com.jivesoftware.example.destroyer.IDestroyable;
 
 /**
  * Created by mark.schisler on 10/15/14.
  */
-public class BackgroundRunner {
+public class BackgroundRunner implements IDestroyable {
     private final String TAG = getClass().getName();
-    private final BackgroundLooper looper;
+    private BackgroundThread backgroundThread;
+    private final Handler backgroundHandler;
+    private final Handler foregroundHandler;
 
     public interface JiveBackgroundRunnable<R> {
         R run() throws Exception;
@@ -18,19 +23,42 @@ public class BackgroundRunner {
         void error();
     }
 
-    public BackgroundRunner(BackgroundLooper looper) {
-        this.looper = looper;
+    public BackgroundRunner(BackgroundThread backgroundThread) {
+        this.backgroundThread = backgroundThread;
+        backgroundHandler = backgroundThread.getHandler();
+        foregroundHandler = new Handler(Looper.getMainLooper());
+    }
+
+    @Override
+    public void destroy() {
+        backgroundThread.destroy();
     }
 
     public <R> void post(final JiveBackgroundRunnable<R> runnable, final JiveResultCallback<R> callback) {
-        looper.getHandler().post(new Runnable() {
+        backgroundHandler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    callback.success(runnable.run());
+                    final R returnValue = runnable.run();
+                    foregroundHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                callback.success(returnValue);
+                            } catch (Exception e) {
+                                Log.e(TAG, "Exception encountered ", e);
+                                callback.error();
+                            }
+                        }
+                    });
                 } catch (Exception e) {
                     Log.e(TAG, "Exception encountered ", e);
-                    callback.error();
+                    foregroundHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.error();
+                        }
+                    });
                 }
             }
         });

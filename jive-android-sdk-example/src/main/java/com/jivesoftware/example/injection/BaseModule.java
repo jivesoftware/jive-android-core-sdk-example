@@ -6,9 +6,12 @@ import com.jivesoftware.example.github.GitHubServiceFactory;
 import com.jivesoftware.example.github.authentication.GitHubAuthenticationErrorHandler;
 import com.jivesoftware.example.github.service.IGitHubAuthService;
 import com.jivesoftware.example.github.service.IGitHubRepoService;
+import com.jivesoftware.example.jive.dao.JiveConnection;
 import com.jivesoftware.example.utils.PersistedKeyValueStore;
 import dagger.Module;
 import dagger.Provides;
+
+import javax.inject.Singleton;
 
 /**
  * Created by stephen.mclaughry on 9/23/14.
@@ -28,5 +31,11 @@ public class BaseModule {
     @Provides
     public IGitHubAuthService provideGitHubAuthService(GitHubBasicAuthRequestInterceptor interceptor) {
         return GitHubServiceFactory.createAuthService(interceptor, new GitHubAuthenticationErrorHandler());
+    }
+
+    @Provides
+    @Singleton
+    public JiveConnection provideJiveConnection() {
+        return new JiveConnection();
     }
 }

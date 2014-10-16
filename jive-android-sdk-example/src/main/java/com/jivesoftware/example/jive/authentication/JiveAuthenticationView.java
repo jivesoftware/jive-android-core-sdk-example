@@ -36,7 +36,7 @@ public class JiveAuthenticationView extends LinearLayout {
     public JiveAuthenticationView(Context context, TypeListenable listenable) {
         super(context);
         this.listenable = listenable;
-        inflate(context, R.layout.github_authentication, this);
+        inflate(context, R.layout.jive_authentication, this);
         ButterKnife.inject(this);
     }
 
@@ -51,9 +51,10 @@ public class JiveAuthenticationView extends LinearLayout {
     }
 
     public void showEndpointFailure() {
-        usernameLayout.setVisibility(VISIBLE);
-        passwordLayout.setLeft(VISIBLE);
-        authenticationMessage.setVisibility(VISIBLE);
         authenticationMessage.setText(getResources().getString(R.string.endpoint_failure));
+    }
+
+    public void showAuthFailure() {
+        authenticationMessage.setText(getResources().getString(R.string.bad_username_password));
     }
 }

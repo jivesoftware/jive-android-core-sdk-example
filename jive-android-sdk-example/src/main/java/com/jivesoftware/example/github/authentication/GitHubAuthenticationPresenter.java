@@ -3,9 +3,9 @@ package com.jivesoftware.example.github.authentication;
 import android.app.Activity;
 import com.jivesoftware.example.github.authentication.events.GitHubLoginPressed;
 import com.jivesoftware.example.github.dao.User;
+import com.jivesoftware.example.jive.authentication.JiveAuthenticationActivity;
 import com.jivesoftware.example.listenable.IListener;
 import com.jivesoftware.example.listenable.IValueListener;
-import com.jivesoftware.example.repositories.RepositoriesActivity;
 import com.jivesoftware.example.utils.ActivityLauncher;
 
 import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.BASIC_AUTHENTICATION_FAILURE;
@@ -31,7 +31,7 @@ public class GitHubAuthenticationPresenter {
             @Override
             public void onPost() {
                 view.hideMessage();
-                launcher.launch(activity, RepositoriesActivity.class);
+                launcher.launch(activity, JiveAuthenticationActivity.class);
             }
         }, OAUTH_AUTHENTICATION_SUCCESS);
 
