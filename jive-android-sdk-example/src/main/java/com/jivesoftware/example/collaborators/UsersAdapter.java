@@ -13,12 +13,12 @@ import javax.inject.Singleton;
  * Created by mark.schisler on 9/22/14.
  */
 @Singleton
-public class UserAdapter extends BaseAdapter {
+public class UsersAdapter extends BaseAdapter {
     private final Provider<UserView> userViewProvider;
     private User[] users = new User[0];
 
     @Inject
-    public UserAdapter(Provider<UserView> userViewProvider) {
+    public UsersAdapter(Provider<UserView> userViewProvider) {
         this.userViewProvider = userViewProvider;
     }
 

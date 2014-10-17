@@ -25,5 +25,6 @@
         <activity android:name=".repositories.RepositoriesActivity"/>
         <activity android:name=".teams.TeamsActivity"/>
         <activity android:name=".collaborators.CollaboratorActivity"/>
+        <activity android:name=".followers.FollowersActivity"/>
     </application>
 </manifest>

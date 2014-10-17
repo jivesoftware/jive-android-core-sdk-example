@@ -19,7 +19,7 @@ import javax.inject.Inject;
  */
 public class CollaboratorsView extends LinearLayout {
     public TypeListenable listenable;
-    private final UserAdapter adapter;
+    private final UsersAdapter adapter;
 
     @InjectView(R.id.users_listview)
     ListView listView;
@@ -29,13 +29,13 @@ public class CollaboratorsView extends LinearLayout {
     }
 
     @Inject
-    public CollaboratorsView(Context context, final TypeListenable listenable, UserAdapter userAdapter) {
+    public CollaboratorsView(Context context, final TypeListenable listenable, UsersAdapter usersAdapter) {
         super(context);
         this.listenable = listenable;
         View view = inflate(context, R.layout.users, this);
         ButterKnife.inject(this, view);
 
-        adapter = userAdapter;
+        adapter = usersAdapter;
         listView.setAdapter(adapter);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

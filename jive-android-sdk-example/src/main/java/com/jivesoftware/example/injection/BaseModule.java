@@ -5,6 +5,7 @@ import com.jivesoftware.example.github.GitHubOauthRequestInterceptor;
 import com.jivesoftware.example.github.GitHubServiceFactory;
 import com.jivesoftware.example.github.authentication.GitHubAuthenticationErrorHandler;
 import com.jivesoftware.example.github.service.IGitHubRepoService;
+import com.jivesoftware.example.github.service.IGitHubUserSearchService;
 import com.jivesoftware.example.jive.dao.JiveConnection;
 import com.jivesoftware.example.utils.JivePicasso;
 import com.jivesoftware.example.utils.PersistedKeyValueStore;
@@ -25,6 +26,11 @@ public class BaseModule {
     @Provides
     public IGitHubRepoService provideGitHubRepoService(GitHubOauthRequestInterceptor interceptor) {
         return GitHubServiceFactory.createRepoService(interceptor, new GitHubAuthenticationErrorHandler());
+    }
+
+    @Provides
+    public IGitHubUserSearchService provideGitHubUserSearchService(GitHubOauthRequestInterceptor interceptor) {
+        return GitHubServiceFactory.createUserSearchService(interceptor, new GitHubAuthenticationErrorHandler());
     }
 
     @Provides

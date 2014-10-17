@@ -9,6 +9,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +28,14 @@ public class GitHubUsersModel {
         USERS_REFRESH_FAILURE,
     }
 
+    @Inject
     public GitHubUsersModel(IGitHubUserSearchService searchService, TypeListenable typeListenable) {
         this.searchService = searchService;
         this.listenable = typeListenable;
     }
 
     public void refresh(String fullName) {
-        String query = "fullName:" + fullName;
+        String query = "fullname:\"" + fullName + "\"";
         searchService.getUsers(query, new Callback<GitHubList<User>>() {
             @Override
             public void success(GitHubList<User> userList, Response response) {
@@ -50,7 +52,7 @@ public class GitHubUsersModel {
     public void refresh(List<String> fullNames) {
         ArrayList<String> queries = new ArrayList<String>();
         for ( String fullName : fullNames) {
-            queries.add("fullName:" + fullName);
+            queries.add("fullname:\"" + fullName + "\"");
         }
         String query = Joiner.on(" ").join(queries);
         searchService.getUsers(query, new Callback<GitHubList<User>>() {
