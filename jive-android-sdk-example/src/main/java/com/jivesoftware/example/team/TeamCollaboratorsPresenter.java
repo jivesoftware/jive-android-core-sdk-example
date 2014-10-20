@@ -1,12 +1,17 @@
 package com.jivesoftware.example.team;
 
 import android.app.Activity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import com.jivesoftware.example.R;
+import com.jivesoftware.example.github.dao.Team;
 import com.jivesoftware.example.listenable.IListener;
 import com.jivesoftware.example.listenable.IValueListener;
 import com.jivesoftware.example.team.events.TeamCollaboratorLongPressed;
 import com.jivesoftware.example.team.events.TeamCollaboratorPressed;
 import com.jivesoftware.example.team.events.TeamCollaborators;
+import com.jivesoftware.example.utils.IntentUtils;
 import com.jivesoftware.example.utils.ToastMaker;
 
 import static com.jivesoftware.example.team.TeamCollaboratorsModel.Type.TEAM_COLLABORATORS_FAILURE;
@@ -20,7 +25,7 @@ import static com.jivesoftware.example.team.TeamCollaboratorsView.Type.TEAM_COLL
  * Created by mark.schisler on 10/20/14.
  */
 public class TeamCollaboratorsPresenter {
-    public static void create(final Activity activity, final TeamCollaboratorsModel model, final TeamCollaboratorsView view, final ToastMaker toastMaker) {
+    public static void create(final Activity activity, final TeamCollaboratorsModel model, final TeamCollaboratorsView view, final Team team, final ToastMaker toastMaker) {
         model.listenable.setListener(new IValueListener<TeamCollaborators>() {
             @Override
             public void onPost(TeamCollaborators event) {
@@ -52,7 +57,7 @@ public class TeamCollaboratorsPresenter {
         view.listenable.setListener(new IValueListener<TeamCollaboratorPressed>() {
             @Override
             public void onPost(TeamCollaboratorPressed event) {
-
+                IntentUtils.startFollowerActivity(activity, team);
             }
         }, TEAM_COLLABORATOR_PRESSED);
 
@@ -69,5 +74,19 @@ public class TeamCollaboratorsPresenter {
 
     public static void resume(TeamCollaboratorsModel model) {
         model.refresh();
+    }
+
+    public static void onCreateOptionsMenu(TeamCollaboratorsActivity activity, Menu menu) {
+        MenuInflater inflater = activity.getMenuInflater();
+        inflater.inflate(R.menu.collaborator_menu_actions, menu);
+
+    }
+
+    public static boolean onMenuItemSelected(TeamCollaboratorsActivity activity, MenuItem item, Team team) {
+        if (item.getItemId() == R.id.action_add_collaborator) {
+            IntentUtils.startFollowerActivity(activity, team);
+            return true;
+        }
+        return false;
     }
 }

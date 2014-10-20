@@ -4,6 +4,7 @@ import com.jivesoftware.android.mobile.sdk.entity.PersonEntity;
 import com.jivesoftware.android.mobile.sdk.entity.PersonListEntity;
 import com.jivesoftware.example.followers.events.FollowersUpdate;
 import com.jivesoftware.example.github.dao.Repository;
+import com.jivesoftware.example.github.dao.Team;
 import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.github.service.IGitHubRepoService;
 import com.jivesoftware.example.jive.dao.JiveConnection;
@@ -21,6 +22,7 @@ import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWERS_E
 import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWERS_SUCCESS;
 import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWER_ADD_FAILURE;
 import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWER_ADD_SUCCESS;
+import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWER_INVITE_SUCCESS;
 import static com.jivesoftware.example.utils.BackgroundRunner.JiveResultCallback;
 
 /**
@@ -30,21 +32,24 @@ public class FollowersModel {
     private IGitHubRepoService gitHubRepoService;
     public TypeListenable listenable;
     private Repository repository;
+    private final Team team;
     private JiveConnection connection;
 
     public enum Type {
         FOLLOWERS_SUCCESS,
         FOLLOWERS_ERROR,
         FOLLOWER_ADD_SUCCESS,
+        FOLLOWER_INVITE_SUCCESS,
         FOLLOWER_ADD_FAILURE
     }
 
     @Inject
-    public FollowersModel(JiveConnection connection, IGitHubRepoService gitHubRepoService, TypeListenable listenable, Repository repository) {
+    public FollowersModel(JiveConnection connection, IGitHubRepoService gitHubRepoService, TypeListenable listenable, Repository repository, Team team) {
         this.connection = connection;
         this.gitHubRepoService = gitHubRepoService;
         this.listenable = listenable;
         this.repository = repository;
+        this.team = team;
     }
 
     public void refresh() {
@@ -72,17 +77,33 @@ public class FollowersModel {
     }
 
     public void addUserAsCollaborator(User user) {
-        gitHubRepoService.putCollaborator(URLUtils.getPath(repository.url),user.login, new Callback<Void>() {
-            @Override
-            public void success(Void aVoid, Response response) {
-                listenable.post(FOLLOWER_ADD_SUCCESS);
-            }
+        if ( repository != null ) {
+            gitHubRepoService.putCollaborator(URLUtils.getPath(repository.url),user.login, new Callback<Void>() {
+                @Override
+                public void success(Void aVoid, Response response) {
+                    listenable.post(FOLLOWER_ADD_SUCCESS);
+                }
 
-            @Override
-            public void failure(RetrofitError error) {
-                listenable.post(FOLLOWER_ADD_FAILURE);
-            }
-        });
+                @Override
+                public void failure(RetrofitError error) {
+                    listenable.post(FOLLOWER_ADD_FAILURE);
+                }
+            });
+        }
+
+        if ( team != null ) {
+            gitHubRepoService.putTeamMember(team.id,user.login, new Callback<Void>() {
+                @Override
+                public void success(Void aVoid, Response response) {
+                    listenable.post(FOLLOWER_INVITE_SUCCESS);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    listenable.post(FOLLOWER_ADD_FAILURE);
+                }
+            });
+        }
     }
 
     private void processFollowers(PersonListEntity followers) {

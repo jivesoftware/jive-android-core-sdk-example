@@ -31,6 +31,12 @@ public class IntentUtils {
         context.startActivity(intent);
     }
 
+    public static void startFollowerActivity(Context context, Team team) {
+        Intent intent = new Intent(context, FollowersActivity.class);
+        intent.putExtra(IntentExtraNames.TEAM, team);
+        context.startActivity(intent);
+    }
+
     public static void startTeamActivity(Context context, Team team) {
         Intent intent = new Intent(context, TeamCollaboratorsActivity.class);
         intent.putExtra(IntentExtraNames.TEAM, team);

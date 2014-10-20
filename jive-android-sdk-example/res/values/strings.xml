@@ -30,4 +30,5 @@
     <string name="team_members">Team members</string>
     <string name="error_delete_user_team">Error removing user from team</string>
     <string name="delete_user_team_success">User removed from team</string>
+    <string name="follower_invite_success">The collaborator has been invited</string>
 </resources>

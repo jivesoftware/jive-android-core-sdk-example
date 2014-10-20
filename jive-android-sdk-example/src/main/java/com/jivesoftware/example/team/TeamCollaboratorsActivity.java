@@ -3,6 +3,8 @@ package com.jivesoftware.example.team;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.jivesoftware.example.github.dao.Team;
 import com.jivesoftware.example.injection.BaseModule;
 import com.jivesoftware.example.utils.IntentExtraNames;
@@ -18,6 +20,8 @@ import javax.inject.Inject;
  */
 public class TeamCollaboratorsActivity extends Activity {
     @Inject
+    Team team;
+    @Inject
     ToastMaker toastMaker;
     @Inject
     TeamCollaboratorsModel model;
@@ -28,7 +32,19 @@ public class TeamCollaboratorsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ObjectGraph.create(new TeamCollaboratorsModule()).inject(this);
-        TeamCollaboratorsPresenter.create(this, model, view, toastMaker);
+        TeamCollaboratorsPresenter.create(this, model, view, team, toastMaker);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        TeamCollaboratorsPresenter.onCreateOptionsMenu(this, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if (TeamCollaboratorsPresenter.onMenuItemSelected(this, item, team)) return  true;
+        return super.onMenuItemSelected(featureId, item);
     }
 
     @Override

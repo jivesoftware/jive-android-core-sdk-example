@@ -13,6 +13,7 @@ import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWERS_E
 import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWERS_SUCCESS;
 import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWER_ADD_FAILURE;
 import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWER_ADD_SUCCESS;
+import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWER_INVITE_SUCCESS;
 import static com.jivesoftware.example.followers.FollowersView.Type.FOLLOWER_SELECTED;
 import static com.jivesoftware.example.followers.GitHubUsersModel.Type.USERS_REFRESH_FAILURE;
 import static com.jivesoftware.example.followers.GitHubUsersModel.Type.USERS_REFRESH_SUCCESS;
@@ -43,6 +44,14 @@ public class FollowersPresenter {
                 activity.finish();
             }
         }, FOLLOWER_ADD_SUCCESS);
+
+        model.listenable.setListener(new IListener() {
+            @Override
+            public void onPost() {
+                toastMaker.makeLongToast(activity, R.string.follower_invite_success);
+                activity.finish();
+            }
+        }, FOLLOWER_INVITE_SUCCESS);
 
         model.listenable.setListener(new IListener() {
             @Override

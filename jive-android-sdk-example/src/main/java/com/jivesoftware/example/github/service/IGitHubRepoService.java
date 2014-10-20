@@ -79,11 +79,11 @@ public interface IGitHubRepoService {
     @GET("/teams/{id}/members")
     void getTeamMembers(@Path("id") int id, Callback<User[]> callback);
 
-    @PUT("/teams/{id}/members/{username}")
+    @PUT("/teams/{id}/memberships/{username}")
     Void putTeamMember(@Path("id") int id, @Path("username") String username);
 
-    @PUT("/teams/{id}/members/{username}")
-    Void putTeamMember(@Path("id") int id, @Path("username") String username, Callback<Void> callback);
+    @PUT("/teams/{id}/memberships/{username}")
+    void putTeamMember(@Path("id") int id, @Path("username") String username, Callback<Void> callback);
 
     @DELETE("/teams/{id}/members/{username}")
     Void deleteTeamMember(@Path("id") int id, @Path("username") String username);
