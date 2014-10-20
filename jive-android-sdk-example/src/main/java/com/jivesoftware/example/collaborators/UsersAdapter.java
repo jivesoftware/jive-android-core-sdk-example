@@ -7,12 +7,10 @@ import com.jivesoftware.example.github.dao.User;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-import javax.inject.Singleton;
 
 /**
  * Created by mark.schisler on 9/22/14.
  */
-@Singleton
 public class UsersAdapter extends BaseAdapter {
     private final Provider<UserView> userViewProvider;
     private User[] users = new User[0];

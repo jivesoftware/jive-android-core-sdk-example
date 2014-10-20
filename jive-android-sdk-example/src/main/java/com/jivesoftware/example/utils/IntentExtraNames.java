@@ -5,4 +5,5 @@ package com.jivesoftware.example.utils;
  */
 public class IntentExtraNames {
     public static final String REPOSITORY = "REPOSITORY";
+    public static final String TEAM = "TEAM";
 }

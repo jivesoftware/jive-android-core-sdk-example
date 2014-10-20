@@ -37,7 +37,7 @@ public class RepositoryView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if ( repository.owner.type.equals(Constants.ORGANIZATION_TYPE)) {
-                    IntentUtils.startTeamActivity(getContext(), repository);
+                    IntentUtils.startTeamsActivity(getContext(), repository);
                 } else {
                     IntentUtils.startCollaboratorActivity(getContext(), repository);
                 }

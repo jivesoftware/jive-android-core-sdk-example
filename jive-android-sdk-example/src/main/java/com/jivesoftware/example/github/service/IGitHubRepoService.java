@@ -84,4 +84,10 @@ public interface IGitHubRepoService {
 
     @PUT("/teams/{id}/members/{username}")
     Void putTeamMember(@Path("id") int id, @Path("username") String username, Callback<Void> callback);
+
+    @DELETE("/teams/{id}/members/{username}")
+    Void deleteTeamMember(@Path("id") int id, @Path("username") String username);
+
+    @DELETE("/teams/{id}/members/{username}")
+    void deleteTeamMember(@Path("id") int id, @Path("username") String username, Callback<Void> callback);
 }

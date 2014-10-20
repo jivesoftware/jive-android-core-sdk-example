@@ -17,20 +17,22 @@ import javax.inject.Inject;
  * Created by mark.schisler on 9/22/14.
  */
 public class UserView extends LinearLayout {
+    private final Picasso picasso;
     @InjectView(R.id.user_avatar)
     ImageView avatar;
     @InjectView(R.id.user_text)
     TextView textView;
 
     @Inject
-    public UserView(Context context) {
+    public UserView(Picasso picasso, Context context) {
         super(context);
+        this.picasso = picasso;
         View view = inflate(context, R.layout.user, this);
         ButterKnife.inject(this, view);
     }
 
     public void refresh(User user) {
-        Picasso.with(getContext()).load(user.avatarUrl).into(avatar);
+        picasso.load(user.avatarUrl).into(avatar);
         textView.setText(user.login);
     }
 }

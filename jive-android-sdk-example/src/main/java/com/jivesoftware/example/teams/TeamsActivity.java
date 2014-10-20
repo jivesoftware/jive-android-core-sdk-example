@@ -24,19 +24,15 @@ public class TeamsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         ObjectGraph.create(new TeamsModule()).inject(this);
-
         TeamsPresenter.create(this, model, view);
     }
 
     @Module( injects = TeamsActivity.class, includes = BaseModule.class )
     public class TeamsModule {
-        @Provides
-        public Context provideActivityContext() {
+        @Provides public Context provideActivityContext() {
             return TeamsActivity.this;
         }
-
         @Provides public Repository provideRepository() {
             return TeamsActivity.this.getIntent().getParcelableExtra(IntentExtraNames.REPOSITORY);
         }

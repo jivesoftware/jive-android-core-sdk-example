@@ -26,4 +26,8 @@
     <string name="follower_search_error">Error searching for followers</string>
     <string name="follower_add_error">Error adding collaborator</string>
     <string name="follower_add_success">Collaborator added</string>
+    <string name="team_collaborators_failure">Error obtaining collaborators</string>
+    <string name="team_members">Team members</string>
+    <string name="error_delete_user_team">Error removing user from team</string>
+    <string name="delete_user_team_success">User removed from team</string>
 </resources>
