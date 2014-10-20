@@ -7,7 +7,7 @@ import com.google.gson.internal.bind.DateTypeAdapter;
 import com.jivesoftware.example.github.authentication.GitHubAuthenticationErrorHandler;
 import com.jivesoftware.example.github.service.IGitHubAuthService;
 import com.jivesoftware.example.github.service.IGitHubRepoService;
-import com.jivesoftware.example.github.service.IGitHubUserSearchService;
+import com.jivesoftware.example.github.service.IGitHubUserService;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
@@ -33,9 +33,9 @@ public class GitHubServiceFactory {
         return restAdapter.create(IGitHubRepoService.class);
     }
 
-    public static IGitHubUserSearchService createUserSearchService(GitHubOauthRequestInterceptor requestInterceptor, GitHubAuthenticationErrorHandler authErrorHandler) {
+    public static IGitHubUserService createUserSearchService(GitHubOauthRequestInterceptor requestInterceptor, GitHubAuthenticationErrorHandler authErrorHandler) {
         RestAdapter restAdapter = getRestAdapter(requestInterceptor, authErrorHandler);
-        return restAdapter.create(IGitHubUserSearchService.class);
+        return restAdapter.create(IGitHubUserService.class);
     }
 
     private static RestAdapter getRestAdapter(RequestInterceptor requestInterceptor, GitHubAuthenticationErrorHandler authErrorHandler) {

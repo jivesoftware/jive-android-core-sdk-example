@@ -6,6 +6,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.jivesoftware.example.R;
 import com.jivesoftware.example.collaborators.events.CollaboratorDeleteEvent;
+import com.jivesoftware.example.collaborators.events.CollaboratorSelectedEvent;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.listenable.IListener;
@@ -16,6 +17,7 @@ import com.jivesoftware.example.utils.ToastMaker;
 import static com.jivesoftware.example.collaborators.CollaboratorModel.Type.COLLABORATOR_DELETE_FAILURE;
 import static com.jivesoftware.example.collaborators.CollaboratorModel.Type.COLLABORATOR_DELETE_SUCCESS;
 import static com.jivesoftware.example.collaborators.CollaboratorModel.Type.COLLABORATOR_REFRESH_SUCCESS;
+import static com.jivesoftware.example.collaborators.CollaboratorsView.Type.COLLABORATOR_SELECTED;
 import static com.jivesoftware.example.collaborators.CollaboratorsView.Type.DELETE_COLLABORATOR_LONG_PRESS;
 
 /**
@@ -29,6 +31,13 @@ public class CollaboratorPresenter {
                 view.setCollaborators(users);
             }
         }, COLLABORATOR_REFRESH_SUCCESS);
+
+        view.listenable.setListener(new IValueListener<CollaboratorSelectedEvent>() {
+            @Override
+            public void onPost(CollaboratorSelectedEvent event) {
+                IntentUtils.startProfileActivity(activity, event.user);
+            }
+        }, COLLABORATOR_SELECTED);
 
         view.listenable.setListener(new IValueListener<CollaboratorDeleteEvent>() {
             @Override

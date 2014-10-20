@@ -57,7 +57,7 @@ public class TeamCollaboratorsPresenter {
         view.listenable.setListener(new IValueListener<TeamCollaboratorPressed>() {
             @Override
             public void onPost(TeamCollaboratorPressed event) {
-                IntentUtils.startFollowerActivity(activity, team);
+                IntentUtils.startProfileActivity(activity, event.user);
             }
         }, TEAM_COLLABORATOR_PRESSED);
 

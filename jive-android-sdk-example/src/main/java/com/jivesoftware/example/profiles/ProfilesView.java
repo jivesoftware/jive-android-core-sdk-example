@@ -39,7 +39,7 @@ public class ProfilesView extends LinearLayout {
     }
 
     public void refreshGitHubProfile(String name, String avatarUrl) {
-        githubName.setText(name);
+        githubName.setText("@" + name);
         picasso.load(Uri.parse(avatarUrl)).into(githubAvatarView);
     }
 }

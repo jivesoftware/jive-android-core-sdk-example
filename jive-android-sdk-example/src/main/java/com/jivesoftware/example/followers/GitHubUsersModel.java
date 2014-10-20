@@ -1,6 +1,6 @@
 package com.jivesoftware.example.followers;
 
-import com.jivesoftware.example.github.service.IGitHubUserSearchService;
+import com.jivesoftware.example.github.service.IGitHubUserService;
 import com.jivesoftware.example.github.dao.GitHubList;
 import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.listenable.TypeListenable;
@@ -21,7 +21,7 @@ import static com.jivesoftware.example.followers.GitHubUsersModel.Type.USERS_REF
  */
 public class GitHubUsersModel {
     public final TypeListenable listenable;
-    private final IGitHubUserSearchService searchService;
+    private final IGitHubUserService searchService;
 
     public enum Type {
         USERS_REFRESH_SUCCESS,
@@ -29,7 +29,7 @@ public class GitHubUsersModel {
     }
 
     @Inject
-    public GitHubUsersModel(IGitHubUserSearchService searchService, TypeListenable typeListenable) {
+    public GitHubUsersModel(IGitHubUserService searchService, TypeListenable typeListenable) {
         this.searchService = searchService;
         this.listenable = typeListenable;
     }

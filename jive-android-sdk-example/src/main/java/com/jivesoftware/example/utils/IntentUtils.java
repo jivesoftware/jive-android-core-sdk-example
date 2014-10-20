@@ -6,6 +6,8 @@ import com.jivesoftware.example.collaborators.CollaboratorActivity;
 import com.jivesoftware.example.followers.FollowersActivity;
 import com.jivesoftware.example.github.dao.Repository;
 import com.jivesoftware.example.github.dao.Team;
+import com.jivesoftware.example.github.dao.User;
+import com.jivesoftware.example.profile.ProfileActivity;
 import com.jivesoftware.example.team.TeamCollaboratorsActivity;
 import com.jivesoftware.example.teams.TeamsActivity;
 
@@ -40,6 +42,12 @@ public class IntentUtils {
     public static void startTeamActivity(Context context, Team team) {
         Intent intent = new Intent(context, TeamCollaboratorsActivity.class);
         intent.putExtra(IntentExtraNames.TEAM, team);
+        context.startActivity(intent);
+    }
+
+    public static void startProfileActivity(Context context, User user) {
+        Intent intent = new Intent(context, ProfileActivity.class);
+        intent.putExtra(IntentExtraNames.USER, user);
         context.startActivity(intent);
     }
 }

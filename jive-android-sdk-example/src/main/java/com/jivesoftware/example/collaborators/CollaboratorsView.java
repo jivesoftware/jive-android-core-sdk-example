@@ -9,10 +9,13 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.jivesoftware.example.R;
 import com.jivesoftware.example.collaborators.events.CollaboratorDeleteEvent;
+import com.jivesoftware.example.collaborators.events.CollaboratorSelectedEvent;
 import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.listenable.TypeListenable;
 
 import javax.inject.Inject;
+
+import static com.jivesoftware.example.collaborators.CollaboratorsView.Type.COLLABORATOR_SELECTED;
 
 /**
  * Created by mark.schisler on 9/22/14.
@@ -25,6 +28,7 @@ public class CollaboratorsView extends LinearLayout {
     ListView listView;
 
     public enum Type {
+        COLLABORATOR_SELECTED,
         DELETE_COLLABORATOR_LONG_PRESS
     }
 
@@ -37,6 +41,13 @@ public class CollaboratorsView extends LinearLayout {
 
         adapter = usersAdapter;
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User user = (User) adapter.getItem(position);
+                listenable.post(new CollaboratorSelectedEvent(user), COLLABORATOR_SELECTED);
+            }
+        });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

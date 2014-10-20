@@ -3,7 +3,7 @@ package com.jivesoftware.example;
 import com.jivesoftware.example.exceptions.AuthenticationException;
 import com.jivesoftware.example.exceptions.TwoFactorException;
 import com.jivesoftware.example.github.GitHubServiceFactory;
-import com.jivesoftware.example.github.service.IGitHubUserSearchService;
+import com.jivesoftware.example.github.service.IGitHubUserService;
 import com.jivesoftware.example.github.dao.GitHubList;
 import com.jivesoftware.example.github.dao.User;
 import org.junit.Before;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
  * Created by mark.schisler on 9/16/14.
  */
 public class GitHubUserSearchServiceTest extends GitHubAbstractServiceTest {
-    private IGitHubUserSearchService testObject;
+    private IGitHubUserService testObject;
 
     @Before
     public void setUp() throws AuthenticationException, TwoFactorException {

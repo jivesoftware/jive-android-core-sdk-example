@@ -27,5 +27,6 @@
         <activity android:name=".collaborators.CollaboratorActivity"/>
         <activity android:name=".team.TeamCollaboratorsActivity"/>
         <activity android:name=".followers.FollowersActivity"/>
+        <activity android:name=".profile.ProfileActivity"/>
     </application>
 </manifest>
