@@ -51,9 +51,6 @@ public class CollaboratorPresenter {
             }
         }, COLLABORATOR_DELETE_FAILURE);
 
-
-        model.refresh();
-
         activity.getActionBar().setTitle(activity.getString(R.string.collaborators));
         activity.setContentView(view);
     }
@@ -71,4 +68,10 @@ public class CollaboratorPresenter {
         return false;
     }
 
+    public static void resume(CollaboratorModel model) {
+        model.refresh();
+    }
 }
+
+
+

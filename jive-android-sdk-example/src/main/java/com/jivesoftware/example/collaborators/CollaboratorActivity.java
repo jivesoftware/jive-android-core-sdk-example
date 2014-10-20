@@ -36,11 +36,16 @@ public class CollaboratorActivity extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        CollaboratorPresenter.resume(model);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         CollaboratorPresenter.onCreateOptionsMenu(this, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
