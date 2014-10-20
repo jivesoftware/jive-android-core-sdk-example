@@ -3,10 +3,15 @@ package com.jivesoftware.example.followers;
 import com.jivesoftware.android.mobile.sdk.entity.PersonEntity;
 import com.jivesoftware.android.mobile.sdk.entity.PersonListEntity;
 import com.jivesoftware.example.followers.events.FollowersUpdate;
+import com.jivesoftware.example.github.dao.Repository;
+import com.jivesoftware.example.github.dao.User;
+import com.jivesoftware.example.github.service.IGitHubRepoService;
 import com.jivesoftware.example.jive.dao.JiveConnection;
 import com.jivesoftware.example.listenable.TypeListenable;
-import com.jivesoftware.example.utils.BackgroundRunner;
 import com.jivesoftware.example.utils.URLUtils;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -14,30 +19,39 @@ import java.util.List;
 
 import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWERS_ERROR;
 import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWERS_SUCCESS;
+import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWER_ADD_FAILURE;
+import static com.jivesoftware.example.followers.FollowersModel.Type.FOLLOWER_ADD_SUCCESS;
+import static com.jivesoftware.example.utils.BackgroundRunner.JiveResultCallback;
 
 /**
  * Created by mark.schisler on 10/16/14.
  */
 public class FollowersModel {
+    private IGitHubRepoService gitHubRepoService;
     public TypeListenable listenable;
+    private Repository repository;
     private JiveConnection connection;
 
     public enum Type {
         FOLLOWERS_SUCCESS,
-        FOLLOWERS_ERROR
+        FOLLOWERS_ERROR,
+        FOLLOWER_ADD_SUCCESS,
+        FOLLOWER_ADD_FAILURE
     }
 
     @Inject
-    public FollowersModel(JiveConnection connection, TypeListenable listenable) {
+    public FollowersModel(JiveConnection connection, IGitHubRepoService gitHubRepoService, TypeListenable listenable, Repository repository) {
         this.connection = connection;
+        this.gitHubRepoService = gitHubRepoService;
         this.listenable = listenable;
+        this.repository = repository;
     }
 
     public void refresh() {
-        connection.fetchMePerson(new BackgroundRunner.JiveResultCallback<PersonEntity>() {
+        connection.fetchMePerson(new JiveResultCallback<PersonEntity>() {
             @Override
             public void success(PersonEntity me) {
-                connection.fetchFollowing(URLUtils.getPath(me.resources.get("following").ref), new BackgroundRunner.JiveResultCallback<PersonListEntity>() {
+                connection.fetchFollowing(URLUtils.getPath(me.resources.get("following").ref), new JiveResultCallback<PersonListEntity>() {
                     @Override
                     public void success(PersonListEntity followers) {
                         processFollowers(followers);
@@ -53,6 +67,20 @@ public class FollowersModel {
             @Override
             public void failure() {
                 listenable.post(FOLLOWERS_ERROR);
+            }
+        });
+    }
+
+    public void addUserAsCollaborator(User user) {
+        gitHubRepoService.putCollaborator(URLUtils.getPath(repository.url),user.login, new Callback<Void>() {
+            @Override
+            public void success(Void aVoid, Response response) {
+                listenable.post(FOLLOWER_ADD_SUCCESS);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                listenable.post(FOLLOWER_ADD_FAILURE);
             }
         });
     }

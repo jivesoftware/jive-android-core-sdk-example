@@ -23,4 +23,7 @@
     <string name="collaborator_deleted">Collaborator deleted</string>
     <string name="collaborator_deleted_failure">Error: collaborator not deleted</string>
     <string name="add_collaborator">Add collaborator</string>
+    <string name="follower_search_error">Error searching for followers</string>
+    <string name="follower_add_error">Error adding collaborator</string>
+    <string name="follower_add_success">Collaborator added</string>
 </resources>
