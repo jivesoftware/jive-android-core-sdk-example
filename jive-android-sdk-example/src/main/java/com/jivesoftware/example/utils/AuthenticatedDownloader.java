@@ -2,7 +2,6 @@ package com.jivesoftware.example.utils;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import com.google.common.net.HttpHeaders;
 import com.squareup.picasso.UrlConnectionDownloader;
 import org.apache.http.message.BasicNameValuePair;
@@ -28,7 +27,6 @@ public class AuthenticatedDownloader extends UrlConnectionDownloader {
         if (header != null) {
             connection.addRequestProperty(header.getName(), header.getValue());
         }
-        Log.wtf("WTF",String.format("SENDING HEADER %s => %s",header.getName(), header.getValue()));
         return connection;
     }
 }
