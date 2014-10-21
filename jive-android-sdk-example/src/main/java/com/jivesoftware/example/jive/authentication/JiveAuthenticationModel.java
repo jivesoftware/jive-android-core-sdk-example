@@ -48,6 +48,7 @@ public class JiveAuthenticationModel {
     public void setEndpoint(String endpoint) {
         try {
             this.endpoint = new URL(endpoint);
+            keyValueStore.putEndpoint(endpoint);
         } catch ( MalformedURLException malformedException ) {
             listenable.post(Type.ENDPOINT_MALFORMED);
         }

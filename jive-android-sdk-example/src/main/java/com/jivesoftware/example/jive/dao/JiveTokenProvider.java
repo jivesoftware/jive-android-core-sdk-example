@@ -5,6 +5,7 @@ import com.jivesoftware.android.mobile.sdk.core.JiveCoreTokenEntityRefresher;
 import com.jivesoftware.android.mobile.sdk.core.JiveCoreTokenEntityStore;
 import com.jivesoftware.android.mobile.sdk.core.JiveCoreUnauthenticated;
 import com.jivesoftware.android.mobile.sdk.entity.TokenEntity;
+import com.jivesoftware.example.utils.PersistedKeyValueStore;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,11 +16,13 @@ import java.io.IOException;
  */
 public class JiveTokenProvider implements JiveCoreTokenEntityStore, JiveCoreTokenEntityRefresher {
     private TokenEntity tokenEntity;
+    private final PersistedKeyValueStore keyValueStore;
     private JiveCoreUnauthenticated jiveCoreUnauthenticated;
     private String username;
     private String password;
 
-    public JiveTokenProvider(JiveCoreUnauthenticated jiveCoreUnauthenticated) {
+    public JiveTokenProvider(PersistedKeyValueStore keyValueStore, JiveCoreUnauthenticated jiveCoreUnauthenticated) {
+        this.keyValueStore = keyValueStore;
         this.jiveCoreUnauthenticated = jiveCoreUnauthenticated;
     }
 
@@ -31,8 +34,11 @@ public class JiveTokenProvider implements JiveCoreTokenEntityStore, JiveCoreToke
     @Nullable
     @Override
     public TokenEntity getTokenEntity() throws IOException {
-        JiveCoreCallable<TokenEntity> authorizeDeviceCallable = jiveCoreUnauthenticated.authorizeDevice(username, password);
-        this.tokenEntity = authorizeDeviceCallable.call();
+        tokenEntity = keyValueStore.getTokenEntity();
+        if ( tokenEntity == null ) {
+            JiveCoreCallable<TokenEntity> authorizeDeviceCallable = jiveCoreUnauthenticated.authorizeDevice(username, password);
+            this.tokenEntity = authorizeDeviceCallable.call();
+        }
         return tokenEntity;
     }
 
@@ -40,7 +46,8 @@ public class JiveTokenProvider implements JiveCoreTokenEntityStore, JiveCoreToke
     @Override
     public TokenEntity refreshTokenEntity(@Nonnull String refreshToken) throws IOException {
         JiveCoreCallable<TokenEntity> refreshTokenCallable = jiveCoreUnauthenticated.refreshToken(refreshToken);
-        this.tokenEntity = refreshTokenCallable.call();
+        tokenEntity = refreshTokenCallable.call();
+        keyValueStore.putTokenEntity(tokenEntity);
         return tokenEntity;
     }
 }

@@ -16,4 +16,10 @@ public class ActivityLauncher {
         Intent intent = new Intent(context, clazz);
         context.startActivity(intent);
     }
+
+    public void launchClearTop(Context context, Class<?> clazz) {
+        Intent intent = new Intent(context, clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
 }

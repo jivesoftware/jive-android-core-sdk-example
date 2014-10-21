@@ -101,4 +101,8 @@ public class GitHubAuthenticationModel {
     public void setOnetime(String onetime) {
         gitHubBasicAuthRequestInterceptor.setOtp(onetime);
     }
+
+    public boolean doTokensExist() {
+        return keyValueStore.doTokensExist();
+    }
 }

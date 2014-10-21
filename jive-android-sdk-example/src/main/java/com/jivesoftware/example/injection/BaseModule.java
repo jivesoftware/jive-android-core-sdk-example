@@ -34,8 +34,8 @@ public class BaseModule {
     }
 
     @Provides
-    public JiveConnection provideJiveConnection() {
-        return JiveConnection.instance();
+    public JiveConnection provideJiveConnection(PersistedKeyValueStore store) {
+        return new JiveConnection(store);
     }
 
     @Provides

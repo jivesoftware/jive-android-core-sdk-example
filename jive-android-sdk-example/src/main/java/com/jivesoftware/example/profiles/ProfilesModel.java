@@ -7,6 +7,7 @@ import com.jivesoftware.example.jive.dao.JiveConnection;
 import com.jivesoftware.example.listenable.TypeListenable;
 import com.jivesoftware.example.profiles.events.GitHubProfileEvent;
 import com.jivesoftware.example.profiles.events.JiveProfileEvent;
+import com.jivesoftware.example.utils.PersistedKeyValueStore;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -24,6 +25,7 @@ import static com.jivesoftware.example.utils.BackgroundRunner.JiveResultCallback
 public class ProfilesModel {
     private JiveConnection jiveConnection;
     private IGitHubAuthService gitHubAuthService;
+    private final PersistedKeyValueStore keyValueStore;
     public TypeListenable listenable;
 
     public enum Type {
@@ -33,9 +35,10 @@ public class ProfilesModel {
     }
 
     @Inject
-    public ProfilesModel(JiveConnection jiveConnection, IGitHubAuthService gitHubAuthService, TypeListenable listenable) {
+    public ProfilesModel(JiveConnection jiveConnection, IGitHubAuthService gitHubAuthService, PersistedKeyValueStore keyValueStore, TypeListenable listenable) {
         this.jiveConnection = jiveConnection;
         this.gitHubAuthService = gitHubAuthService;
+        this.keyValueStore = keyValueStore;
         this.listenable = listenable;
     }
 

@@ -6,6 +6,7 @@ import com.jivesoftware.example.github.dao.User;
 import com.jivesoftware.example.jive.authentication.JiveAuthenticationActivity;
 import com.jivesoftware.example.listenable.IListener;
 import com.jivesoftware.example.listenable.IValueListener;
+import com.jivesoftware.example.repositories.RepositoriesActivity;
 import com.jivesoftware.example.utils.ActivityLauncher;
 
 import static com.jivesoftware.example.github.authentication.GitHubAuthenticationModel.Type.BASIC_AUTHENTICATION_FAILURE;
@@ -67,6 +68,10 @@ public class GitHubAuthenticationPresenter {
         }, GIT_HUB_LOGIN_PRESSED);
 
         activity.setContentView(view);
+
+        if ( model.doTokensExist() ) {
+            launcher.launch(activity, RepositoriesActivity.class);
+        }
     }
 
 }
