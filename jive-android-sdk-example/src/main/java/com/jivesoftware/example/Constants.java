@@ -11,5 +11,6 @@ public class Constants {
     public static final String OAUTH_CLIENT_SECRET = "654f1aebcc45932237e4c0af3a4f6a3f87eb64db";
     
     public static final String ORGANIZATION_TYPE = "Organization";
-    public static final String USER_TYPE = "User";
+    public static final String OAUTH_CREDENTIALS = "OXNtZ2dqZHQzanlkajl2bTA4ZGc4MnBwaGMwYWx2ZTAuaTpndm8zN3Awd3VyejZrMXZsY2c0M2J2dDZ1Zzg1cTF4Zy5z";
+    public static final String OAUTH_ADDON_UUID = "ede79b6c-50d1-4c57-adf1-4ee2c94234ce";
 }

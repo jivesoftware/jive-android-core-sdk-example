@@ -6,6 +6,7 @@ import com.jivesoftware.android.mobile.sdk.entity.PersonEntity;
 import com.jivesoftware.android.mobile.sdk.entity.PersonListEntity;
 import com.jivesoftware.android.mobile.sdk.entity.TokenEntity;
 import com.jivesoftware.android.mobile.sdk.json.JiveJson;
+import com.jivesoftware.example.Constants;
 import com.jivesoftware.example.destroyer.IDestroyable;
 import com.jivesoftware.example.utils.BackgroundRunner;
 import com.jivesoftware.example.utils.BackgroundThread;
@@ -44,7 +45,7 @@ public class JiveConnection implements IDestroyable {
 
     public void authenticate(final String username, final String password, final URL endpoint, JiveResultCallback<TokenEntity> callback) {
         httpClientUnauthenticated = new DefaultHttpClient();
-        this.jiveCoreUnauthenticated = new JiveCoreUnauthenticated(endpoint, httpClientUnauthenticated, jiveJson);
+        this.jiveCoreUnauthenticated = new JiveCoreUnauthenticated(endpoint, Constants.OAUTH_CREDENTIALS, Constants.OAUTH_ADDON_UUID, httpClientUnauthenticated, jiveJson);
         this.jiveTokenProvider = new JiveTokenProvider(jiveCoreUnauthenticated);
         httpClientAuthenticated = new DefaultHttpClient();
         this.jiveCoreAuthenticated = new JiveCore(endpoint, httpClientAuthenticated,jiveTokenProvider, jiveTokenProvider, jiveJson);
