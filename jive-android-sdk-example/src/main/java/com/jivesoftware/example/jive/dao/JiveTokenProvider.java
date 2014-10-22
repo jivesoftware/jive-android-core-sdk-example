@@ -36,6 +36,7 @@ public class JiveTokenProvider implements JiveCoreTokenEntityStore, JiveCoreToke
     public TokenEntity getTokenEntity() throws IOException {
         tokenEntity = keyValueStore.getTokenEntity();
         if ( tokenEntity == null ) {
+            // Retrieve the TokenEntity if it hasn't been stored yet via an API call
             JiveCoreCallable<TokenEntity> authorizeDeviceCallable = jiveCoreUnauthenticated.authorizeDevice(username, password);
             this.tokenEntity = authorizeDeviceCallable.call();
         }
@@ -45,6 +46,7 @@ public class JiveTokenProvider implements JiveCoreTokenEntityStore, JiveCoreToke
     @Nullable
     @Override
     public TokenEntity refreshTokenEntity(@Nonnull String refreshToken) throws IOException {
+        // This implementation allows for persisting new TokenEntities when a refresh is required
         JiveCoreCallable<TokenEntity> refreshTokenCallable = jiveCoreUnauthenticated.refreshToken(refreshToken);
         tokenEntity = refreshTokenCallable.call();
         keyValueStore.putTokenEntity(tokenEntity);

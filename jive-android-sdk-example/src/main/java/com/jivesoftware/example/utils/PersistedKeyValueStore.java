@@ -81,7 +81,6 @@ public class PersistedKeyValueStore {
     }
 
     public boolean clear() {
-        JiveJson json = new JiveJson();
         SharedPreferences sharedPref = context.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
