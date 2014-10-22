@@ -70,7 +70,7 @@ public class GitHubAuthenticationPresenter {
         activity.setContentView(view);
 
         if ( model.doTokensExist() ) {
-            launcher.launch(activity, RepositoriesActivity.class);
+            launcher.launchClearTop(activity, RepositoriesActivity.class);
         }
     }
 
