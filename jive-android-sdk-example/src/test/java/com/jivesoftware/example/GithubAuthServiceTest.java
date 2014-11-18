@@ -23,7 +23,7 @@ import static org.junit.Test.None;
  */
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
-public class GitHubAuthServiceTest {
+public class GithubAuthServiceTest {
     private IGitHubAuthService testObject;
     private String username;
     private String password;
