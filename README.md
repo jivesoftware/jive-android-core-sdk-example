@@ -3,7 +3,7 @@ jive-android-sdk-example
 
 An example of how to use the Jive for Android SDK
 
-# Getting Started
+# Getting started
 
 Refer to the wiki for help [getting started](https://github.com/jivesoftware/jive-android-core-sdk-example/wiki/Getting-Started).
 
