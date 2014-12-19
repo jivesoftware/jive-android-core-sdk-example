@@ -5,6 +5,7 @@ import com.jivesoftware.android.mobile.sdk.core.JiveCoreTokenEntityRefresher;
 import com.jivesoftware.android.mobile.sdk.core.JiveCoreTokenEntityStore;
 import com.jivesoftware.android.mobile.sdk.core.JiveCoreUnauthenticated;
 import com.jivesoftware.android.mobile.sdk.entity.TokenEntity;
+import com.jivesoftware.android.mobile.sdk.parser.JiveCoreException;
 import com.jivesoftware.example.utils.PersistedKeyValueStore;
 
 import javax.annotation.Nonnull;
@@ -33,7 +34,7 @@ public class JiveTokenProvider implements JiveCoreTokenEntityStore, JiveCoreToke
 
     @Nullable
     @Override
-    public TokenEntity getTokenEntity() throws IOException {
+    public TokenEntity getTokenEntity() throws IOException, JiveCoreException {
         tokenEntity = keyValueStore.getTokenEntity();
         if ( tokenEntity == null ) {
             // Retrieve the TokenEntity if it hasn't been stored yet via an API call
@@ -45,7 +46,7 @@ public class JiveTokenProvider implements JiveCoreTokenEntityStore, JiveCoreToke
 
     @Nullable
     @Override
-    public TokenEntity refreshTokenEntity(@Nonnull String refreshToken) throws IOException {
+    public TokenEntity refreshTokenEntity(@Nonnull String refreshToken) throws IOException, JiveCoreException {
         // This implementation allows for persisting new TokenEntities when a refresh is required
         JiveCoreCallable<TokenEntity> refreshTokenCallable = jiveCoreUnauthenticated.refreshToken(refreshToken);
         tokenEntity = refreshTokenCallable.call();

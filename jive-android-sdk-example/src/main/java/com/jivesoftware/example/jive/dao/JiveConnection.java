@@ -55,7 +55,7 @@ public class JiveConnection implements IDestroyable {
         this.jiveCoreUnauthenticated = new JiveCoreUnauthenticated(endpoint, Constants.OAUTH_CREDENTIALS, Constants.OAUTH_ADDON_UUID, httpClientUnauthenticated, jiveJson);
         this.jiveTokenProvider = new JiveTokenProvider(keyValueStore, jiveCoreUnauthenticated);
         this.httpClientAuthenticated = new DefaultHttpClient();
-        this.jiveCoreAuthenticated = new JiveCore(endpoint, httpClientAuthenticated,jiveTokenProvider, jiveTokenProvider, jiveJson);
+        this.jiveCoreAuthenticated = new JiveCore(endpoint, Constants.OAUTH_CREDENTIALS, httpClientAuthenticated,jiveTokenProvider, jiveTokenProvider, jiveJson);
     }
 
     public void authenticate(final String username, final String password, final URL endpoint, JiveResultCallback<TokenEntity> callback) {
